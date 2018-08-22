@@ -25,6 +25,12 @@ def webhook():
 
     return 'ok', 200
 
+@app.route('/export', methods=['POST'])
+def madden_export():
+    data = request.get_json()
+    print(data)
+
+
 def send_message(msg):
     url = 'https://api.groupme.com/v3/bots/post'
 
