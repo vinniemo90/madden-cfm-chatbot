@@ -25,7 +25,7 @@ def webhook():
 
     return 'ok', 200
 
-@app.route('/export', methods=['POST'])
+@app.route('/export/<path:endpoint>', methods=['POST'])
 def madden_export():
     data = request.get_json()
     print(data)
