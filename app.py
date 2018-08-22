@@ -30,6 +30,8 @@ def madden_export(endpoint):
     data = request.get_json()
     print(data)
 
+    return 'ok', 200
+
 
 def send_message(msg):
     url = 'https://api.groupme.com/v3/bots/post'
