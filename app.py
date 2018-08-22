@@ -25,7 +25,7 @@ def webhook():
 
     return 'ok', 200
 
-@app.route('/exports/ps3/199646/leagueteams', methods=['POST'])
+@app.route('/exports/ps3/199646/<path>', methods=['POST'])
 def madden_export():
     data = request.get_json()
     print(data)
