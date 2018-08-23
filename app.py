@@ -27,15 +27,15 @@ def webhook():
 
 @app.route('/exports/ps3/199646/leagueteams', methods=['POST'])
 def league_teams_export():
-    data = request.get_json()
-    print(data)
+    #data = request.get_json()
+    #print(data)
 
     return 'ok', 200
 
 @app.route('/exports/ps3/199646/standings', methods=['POST'])
 def standings_export():
-    data = request.get_json()
-    print(data)
+    #data = request.get_json()
+    #print(data)
 
     return 'ok', 200
 
