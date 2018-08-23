@@ -27,22 +27,22 @@ def webhook():
 
 @app.route('/exports/<system>/<leagueId>/leagueteams', methods=['POST'])
 def league_teams_export(system, leagueId):
-    data = request.get_json(force=True)
-    print(data)
+    #data = request.get_json(force=True)
+    print(request.is_json())
 
     return 'ok', 200
 
 @app.route('/exports/<system>/<leagueId>/standings', methods=['POST'])
 def standings_export(system, leagueId):
-    data = request.get_json(force=True)
-    print(data)
+    #data = request.get_json(force=True)
+    print(request.is_json())
 
     return 'ok', 200
 
 @app.route('/exports/<system>/<leagueId>/week/<weekType>/<weekNumber>/<dataType>', methods=['POST'])
 def week_export(system, leagueId, weekType, weekNumber, dataType):
-    data = request.get_json(force=True)
-    print(data)
+    #data = request.get_json(force=True)
+    print(request.is_json())
 
     return 'ok', 200
 
