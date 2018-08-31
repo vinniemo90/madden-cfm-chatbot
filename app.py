@@ -28,8 +28,8 @@ def webhook():
 @app.route('/exports/<system>/<leagueId>/leagueteams', methods=['POST'])
 def league_teams_export(system, leagueId):
     print(request.is_json)
-    data = request.get_json()
-    print(data['teams'])
+    data = json.dumps(request.get_json())
+    print(data)
     #print(json)
 
     return 'ok', 200
