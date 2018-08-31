@@ -28,16 +28,15 @@ def webhook():
 @app.route('/exports/<system>/<leagueId>/leagueteams', methods=['POST'])
 def league_teams_export(system, leagueId):
     print(request.is_json)
-    pprint.pformat(request.environ,depth=5)
+    json = urlopen(request).read().decode()
     # data = request.get_json()
-    # print(data)
+    print(json)
 
     return 'ok', 200
 
 @app.route('/exports/<system>/<leagueId>/standings', methods=['POST'])
 def standings_export(system, leagueId):
     print(request.is_json)
-    pprint.pformat(request.environ,depth=5)
     # data = request.get_json()
     # print(data)
 
@@ -46,7 +45,6 @@ def standings_export(system, leagueId):
 @app.route('/exports/<system>/<leagueId>/week/<weekType>/<weekNumber>/<dataType>', methods=['POST'])
 def week_export(system, leagueId, weekType, weekNumber, dataType):
     print(request.is_json)
-    pprint.pformat(request.environ,depth=5)
     # data = request.get_json()
     # print(data)
 
