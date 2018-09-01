@@ -1,14 +1,45 @@
 import os
 import json
+import firebase_admin
 import io
 import gzip
+
+from firebase_admin import credentials
+from firebase_admin import db
 
 from urllib.parse import urlencode
 from urllib.request import Request, urlopen
 
 from flask import Flask, request
 
+FIREBASE_CERT_FILE = 'madden-cfm-chatbot-214101-2be3f377a7eb.json'
 app = Flask(__name__)
+
+# Create firebase creds file
+firebase_creds = {
+  "type": os.getenv('FIREBASE_CREDS_TYPE'),
+  "project_id": os.getenv('FIREBASE_PROJECT_ID'),
+  "private_key_id": os.getenv('FIREBASE_PRIVATE_KEY_ID'),
+  "private_key": os.getenv('FIREBASE_PRIVATE_KEY'),
+  "client_email": os.getenv('FIREBASE_CLIENT_EMAIL'),
+  "client_id": os.getenv('FIREBASE_CLIENT_ID'),
+  "auth_uri": os.getenv('FIREBASE_AUTH_URI'),
+  "token_uri": os.getenv('FIREBASE_TOKEN_URI'),
+  "auth_provider_x509_cert_url": os.getenv('FIREBASE_AUTH_PROVIDER'),
+  "client_x509_cert_url": os.getenv('FIREBASE_CLIENT_CERT_URL')
+}
+
+with open(FIREBASE_CERT_FILE, 'w') as fp:
+    json.dump(firebase_creds, fp)
+
+# Initialize firebase connection
+cred = credentials.Certificate(FIREBASE_CERT_FILE)
+firebase_admin.initialize_app(cred, {
+    'databaseURL' : os.getenv('DATABASE_URL')
+})
+
+# Root db reference
+cfm = db.reference()
 
 @app.route('/', methods=['POST'])
 def webhook():
@@ -29,31 +60,35 @@ def webhook():
 
 @app.route('/exports/<system>/<leagueId>/leagueteams', methods=['POST'])
 def league_teams_export(system, leagueId):
-    print(request.is_json)
-    print(request.content_encoding)
-    print(request.mimetype)
-
     # Decompress gzip bytes stream
     buf = io.BytesIO(request.data)
     gzip_f = gzip.GzipFile(fileobj=buf)
     data = gzip_f.read()
     data = data.decode('utf-8')
-    print(data)
+    teams = json.loads(data)
+    del data
+
+    teams_ref = cfm.child('teams')
+
+    for team in teams:
+        teams_ref.child(team['teamId']).set(team)
 
     return 'ok', 200
 
 @app.route('/exports/<system>/<leagueId>/standings', methods=['POST'])
 def standings_export(system, leagueId):
-    print(request.is_json)
-    print(request.content_encoding)
-    print(request.mimetype)
-
     # Decompress gzip bytes stream
     buf = io.BytesIO(request.data)
     gzip_f = gzip.GzipFile(fileobj=buf)
     data = gzip_f.read()
     data = data.decode('utf-8')
-    print(data)
+    standings = json.loads(data)
+    del data
+
+    standings_ref = cfm.child('standings')
+
+    for team in standings:
+        standings_ref.child(team['teamId']).set(team)
 
     return 'ok', 200
 
