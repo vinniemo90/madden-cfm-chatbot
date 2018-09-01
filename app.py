@@ -33,7 +33,7 @@ def league_teams_export(system, leagueId):
     print(request.content_encoding)
     print(request.mimetype)
 
-    buf = io.StringIO(request.data)
+    buf = io.BytesIO(request.data)
     gzip_f = gzip.GzipFile(fileobj=buf)
     content = gzip_f.read()
     print(content)
@@ -46,7 +46,7 @@ def standings_export(system, leagueId):
     print(request.content_encoding)
     print(request.mimetype)
 
-    buf = io.StringIO(request.data)
+    buf = io.BytesIO(request.data)
     gzip_f = gzip.GzipFile(fileobj=buf)
     content = gzip_f.read()
     print(content)
@@ -58,7 +58,7 @@ def week_export(system, leagueId, weekType, weekNumber, dataType):
     print(request.is_json)
     print(request.mimetype)
 
-    buf = io.StringIO(request.data)
+    buf = io.BytesIO(request.data)
     gzip_f = gzip.GzipFile(fileobj=buf)
     content = gzip_f.read()
     print(content)
