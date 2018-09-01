@@ -30,7 +30,7 @@ def league_teams_export(system, leagueId):
     print(request.is_json)
     print(request.mimetype)
     try:
-        data = request.get_json()
+        data = request.get_json()['teams']
 
     except Exception as e:
         print(e)
