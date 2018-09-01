@@ -28,22 +28,16 @@ def webhook():
 @app.route('/exports/<system>/<leagueId>/leagueteams', methods=['POST'])
 def league_teams_export(system, leagueId):
     print(request.is_json)
+    print(request.content_encoding)
     print(request.mimetype)
-    buf = io.StringIO(request.data)
-    gzip_f = gzip.GzipFile(fileobj=buf)
-    content = gzip_f.read()
-    print(content)
 
     return 'ok', 200
 
 @app.route('/exports/<system>/<leagueId>/standings', methods=['POST'])
 def standings_export(system, leagueId):
     print(request.is_json)
+    print(request.content_encoding)
     print(request.mimetype)
-    buf = io.StringIO(request.data)
-    gzip_f = gzip.GzipFile(fileobj=buf)
-    content = gzip_f.read()
-    print(content)
 
     return 'ok', 200
 
