@@ -29,11 +29,8 @@ def webhook():
 def league_teams_export(system, leagueId):
     print(request.is_json)
     print(request.mimetype)
-    try:
-        data = request.get_json()['teams']
-
-    except Exception as e:
-        print(e)
+    data = json.loads(request.data, strict=False)
+    print(data)
 
     return 'ok', 200
 
@@ -53,11 +50,7 @@ def standings_export(system, leagueId):
 def week_export(system, leagueId, weekType, weekNumber, dataType):
     print(request.is_json)
     print(request.mimetype)
-    try:
-        data = request.get_json()
-
-    except Exception as e:
-        print(e)
+    data = request.get_json()
 
     return 'ok', 200
 
