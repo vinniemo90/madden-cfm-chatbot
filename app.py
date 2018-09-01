@@ -29,8 +29,10 @@ def webhook():
 def league_teams_export(system, leagueId):
     print(request.is_json)
     print(request.mimetype)
-    data = json.loads(request.data, strict=False)
-    print(data)
+    buf = io.StringIO(request.data)
+    gzip_f = gzip.GzipFile(fileobj=buf)
+    content = gzip_f.read()
+    print(content)
 
     return 'ok', 200
 
@@ -38,11 +40,10 @@ def league_teams_export(system, leagueId):
 def standings_export(system, leagueId):
     print(request.is_json)
     print(request.mimetype)
-    try:
-        data = request.get_json()
-
-    except Exception as e:
-        print(e)
+    buf = io.StringIO(request.data)
+    gzip_f = gzip.GzipFile(fileobj=buf)
+    content = gzip_f.read()
+    print(content)
 
     return 'ok', 200
 
@@ -50,7 +51,10 @@ def standings_export(system, leagueId):
 def week_export(system, leagueId, weekType, weekNumber, dataType):
     print(request.is_json)
     print(request.mimetype)
-    data = request.get_json()
+    buf = io.StringIO(request.data)
+    gzip_f = gzip.GzipFile(fileobj=buf)
+    content = gzip_f.read()
+    print(content)
 
     return 'ok', 200
 
