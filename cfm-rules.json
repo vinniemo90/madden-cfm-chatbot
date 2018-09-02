@@ -9,5 +9,11 @@
         "No DB to LB position change, unless >= 215 lbs",
         "Quit games - 1st and 2nd quit games receive force L. 2nd quit league can vote to boot. 3rd quit is automatic boot",
         "Chew clock only allowed in 4th quarter @ 2 min mark."
+    ],
+    "help prompt":[
+        "I am the Madden 19 GroupMe chat bot created by TG4 Solutions. I am here to help you stay connected with your Madden Connected Franchise. Below you can find a list of commands",
+        "'/rules' = list of your league rules",
+        "'/teams <team name>' = general team info (e.g. name, ovr. rating, and owner)",
+        "'/injuries <team name>' = number of players injured"
     ]
 }
