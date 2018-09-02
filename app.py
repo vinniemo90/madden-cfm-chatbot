@@ -86,6 +86,7 @@ def standings_export(system, leagueId):
     standings_ref = cfm.child('standings')
 
     for team in standings:
+        print(team)
         standings_ref.set({team['teamId']: team})
 
     return 'ok', 200
