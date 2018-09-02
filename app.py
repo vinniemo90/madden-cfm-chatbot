@@ -65,10 +65,9 @@ def league_teams_export(system, leagueId):
     teams = teams['leagueTeamInfoList']
     del data
 
-    teams_ref = cfm.child('teams')
-
     for team in teams:
-        teams_ref.set({team['teamId']: team})
+        teams_ref = cfm.child('teams').child(team['teamId'])
+        teams_ref.set(team)
 
     return 'ok', 200
 
@@ -83,10 +82,9 @@ def standings_export(system, leagueId):
     standings = standings['teamStandingInfoList']
     del data
 
-    standings_ref = cfm.child('standings')
-
     for team in standings:
-        standings_ref.push({team['teamId']: team})
+        standings_ref = cfm.child('standings').child(team['teamId'])
+        standings_ref.set(team)
 
     return 'ok', 200
 
