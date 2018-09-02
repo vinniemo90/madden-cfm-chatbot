@@ -62,7 +62,7 @@ def league_teams_export(system, leagueId):
     data = gzip_f.read()
     data = data.decode('utf-8')
     teams = json.loads(data)
-    #teams = teams['leagueTeamInfoList']
+    teams = teams['leagueTeamInfoList']
     del data
 
     teams_ref = cfm.child('teams')
@@ -80,13 +80,13 @@ def standings_export(system, leagueId):
     data = gzip_f.read()
     data = data.decode('utf-8')
     standings = json.loads(data)
-    #standings = standings['teamStandingInfoList']
+    standings = standings['teamStandingInfoList']
     del data
 
     standings_ref = cfm.child('standings')
 
     for team in standings:
-        standings_ref.set({team['teamId']: team})
+        standings_ref.push({team['teamId']: team})
 
     return 'ok', 200
 
