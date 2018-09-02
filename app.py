@@ -67,7 +67,7 @@ def league_teams_export(system, leagueId):
 
     for team in teams:
         teams_ref = cfm.child('teams').child(team['teamId'])
-        teams_ref.set(team)
+        teams_ref.set({team['teamId']: team})
 
     return 'ok', 200
 
@@ -84,7 +84,7 @@ def standings_export(system, leagueId):
 
     for team in standings:
         standings_ref = cfm.child('standings').child(team['teamId'])
-        standings_ref.set(team)
+        standings_ref.set({team['teamId']: team})
 
     return 'ok', 200
 
