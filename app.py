@@ -12,7 +12,6 @@ from urllib.request import Request, urlopen
 
 from flask import Flask, request
 
-FIREBASE_CERT_FILE = 'madden-cfm-chatbot-214101-2be3f377a7eb.json'
 app = Flask(__name__)
 
 # Create firebase creds file
