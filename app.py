@@ -68,10 +68,7 @@ def league_teams_export(system, leagueId):
     teams_ref = cfm.child('teams')
 
     for team in teams:
-        if not team['userName']:
-            team['userName'] = ' '
-
-        teams_ref.child(team['teamId']).set(team)
+        teams_ref.set({team['teamId']: team})
 
     return 'ok', 200
 
@@ -89,7 +86,7 @@ def standings_export(system, leagueId):
     standings_ref = cfm.child('standings')
 
     for team in standings:
-        standings_ref.child(team['teamId']).set(team)
+        standings_ref.set({team['teamId']: team})
 
     return 'ok', 200
 
