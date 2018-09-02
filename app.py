@@ -30,9 +30,8 @@ firebase_creds = {
 }
 
 with open(FIREBASE_CERT_FILE, 'w') as fp:
-    json.dump(firebase_creds, fp)
+    fp.write(json.dumps(firebase_creds))
 
-print(json.load(FIREBASE_CERT_FILE))
 # Initialize firebase connection
 cred = credentials.Certificate(FIREBASE_CERT_FILE)
 firebase_admin.initialize_app(cred, {
