@@ -63,7 +63,7 @@ def webhook():
         if(len(msg) > func_index + 1):
             try:
                 team_map_snapshot = cfm.child('teamMap').get()
-                team_id = team_map_snapshot[msg[func_index + 1]]
+                team_id = team_map_snapshot[msg[func_index + 1].lower()]
                 team_info_snapshot = cfm.child('teams').child(team_id).get()
 
                 team_info_dict['City'] = team_info_snapshot['cityName']
