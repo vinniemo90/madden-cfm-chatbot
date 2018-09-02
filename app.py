@@ -61,7 +61,6 @@ def league_teams_export(system, leagueId):
     gzip_f = gzip.GzipFile(fileobj=buf)
     data = gzip_f.read()
     data = data.decode('utf-8')
-    data = data.replace("", " ")
     teams = json.loads(data)
     teams = teams['leagueTeamInfoList']
     del data
@@ -69,6 +68,9 @@ def league_teams_export(system, leagueId):
     teams_ref = cfm.child('teams')
 
     for team in teams:
+        if not team['userName']:
+            team['userName'] = ' '
+
         teams_ref.child(team['teamId']).set(team)
 
     return 'ok', 200
@@ -80,7 +82,6 @@ def standings_export(system, leagueId):
     gzip_f = gzip.GzipFile(fileobj=buf)
     data = gzip_f.read()
     data = data.decode('utf-8')
-    data = data.replace("", " ")
     standings = json.loads(data)
     standings = standings['teamStandingInfoList']
     del data
