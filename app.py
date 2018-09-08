@@ -77,19 +77,8 @@ def webhook():
                 send_message('Sorry, an error occurred processing your request.')
 
         else:
-            try:
-                standings_info_snapshot = cfm.child('standings').get()
-
-                nfl_teams = [ (team['seed'], team['teamName']) for team_id, team in standings_info_snapshot.items() if int(team['seed']) <= 12 ]
-                sorted_teams = sorted(nfl_teams, key=lambda tup: tup[0])
-                
-                team_standings = [ f"{team[0]}. {team[1]}" for team in sorted_teams ]
-
-                send_message('\n'.join(team_standings))
-            
-            except Exception as e:
-                print(e)
-                send_message('Sorry, an error occurred processing your request.')
+           send_message("Sorry, I couldn't find a team name associated with your request."
+                        " Use '/help' to get a list of commands.")
 
     # Help prompt
     elif data['name'] != 'John Madden' and '/help' in data['text'].lower():
