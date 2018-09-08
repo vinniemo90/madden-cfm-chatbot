@@ -68,7 +68,7 @@ def webhook():
                 conf_teams = [ (team['seed'], team['teamName']) for team_id, team in standings_info_snapshot.items() if team['conferenceId'] == conf_id ]
                 sorted_teams = sorted(conf_teams, key=lambda tup: tup[0])
                 
-                team_standings = [ f"{team['seed']}. {team['teamName']}" for team in sorted_teams[0:9] ]
+                team_standings = [ f"{team[0]}. {team[1]}" for team in sorted_teams[0:9] ]
 
                 send_message('\n'.join(team_standings))
             
@@ -83,7 +83,7 @@ def webhook():
                 nfl_teams = [ (team['seed'], team['teamName']) for team_id, team in standings_info_snapshot.items() if int(team['seed']) <= 12 ]
                 sorted_teams = sorted(nfl_teams, key=lambda tup: tup[0])
                 
-                team_standings = [ f"{team['seed']}. {team['teamName']}" for team in sorted_teams ]
+                team_standings = [ f"{team[0]}. {team[1]}" for team in sorted_teams ]
 
                 send_message('\n'.join(team_standings))
             
