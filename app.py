@@ -31,6 +31,9 @@ firebase_creds = {
 # Team info to be returned
 team_info_dict = {'City':'', 'Mascot':'','Division':'','Ovr Rating':'','Owner':''}
 
+# Team stats to be returned
+team_stats_dict = {'Team':'','Team Rank':'', 'Prev. Team Rank':'', 'Pts For Rank':'', 'Pts Against Rank':'', 'Off Total Yds Rank':'', 'Off Pass Yds Rank':'','Off Rush Yds Rank':'', 'Def Total Yds Rank':'', 'Def Pass Yds Rank':'','Def Rush Yds Rank':'', 'TO Diff':''}
+
 # Team cap info to be returned
 team_cap_dict = {'Team':'', 'Cap Room': '', 'Cap Spent': '', 'Cap Available': ''}
 
@@ -120,6 +123,40 @@ def webhook():
 
                 team_info = [ f'{key}: {val}' for key, val in team_info_dict.items() ]
                 send_message('\n'.join(team_info))
+            
+            except Exception as e:
+                print(e)
+                send_message('Sorry, an error occurred processing your request.')
+
+        else:
+            send_message("Sorry, I couldn't find a team name associated with your request."
+                        " Use '/help' to get a list of commands.")
+
+    # Team season stats
+    elif data['name'] != 'John Madden' and '/stats' in data['text'].lower():
+        msg = data['text'].lower().split()
+        func_index = msg.index('/stats')
+        if(len(msg) > func_index + 1):
+            try:
+                team_map_snapshot = cfm.child('teamMap').get()
+                team_id = team_map_snapshot[msg[func_index + 1].lower()]
+                team_info_snapshot = cfm.child('standings').child(team_id).get()
+
+                team_stats_dict['Team'] = team_info_snapshot['teamName']
+                team_stats_dict['Team Rank'] = team_info_snapshot['rank']
+                team_stats_dict['Prev. Team Rank'] = team_info_snapshot['prevRank']
+                team_stats_dict['Pts For Rank'] = team_info_snapshot['ptsForRank']
+                team_stats_dict['Pts Against Rank'] = team_info_snapshot['ptsAgainstRank']
+                team_stats_dict['Off Total Yds Rank'] = team_info_snapshot['offTotalYdsRank']
+                team_stats_dict['Off Pass Yds Rank'] = team_info_snapshot['offPassYdsRank']
+                team_stats_dict['Off Rush Yds Rank'] = team_info_snapshot['offRushYdsRank']
+                team_stats_dict['Def Total Yds Rank'] = team_info_snapshot['defTotalYdsRank']
+                team_stats_dict['Def Pass Yds Rank'] = team_info_snapshot['defPassYdsRank']
+                team_stats_dict['Def Rush Yds Rank'] = team_info_snapshot['defRushYdsRank']
+                team_stats_dict['TO Diff'] = team_info_snapshot['tODiff']
+
+                team_stats = [ f'{key}: {val}' for key, val in team_stats_dict.items() ]
+                send_message('\n'.join(team_stats))
             
             except Exception as e:
                 print(e)
