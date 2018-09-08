@@ -227,6 +227,7 @@ def webhook():
 
     return 'ok', 200
 
+# Team info export endpoint
 @app.route('/exports/<system>/<leagueId>/leagueteams', methods=['POST'])
 def league_teams_export(system, leagueId):
     # Decompress gzip bytes stream
@@ -245,6 +246,7 @@ def league_teams_export(system, leagueId):
 
     return 'ok', 200
 
+# Standings export endpoint
 @app.route('/exports/<system>/<leagueId>/standings', methods=['POST'])
 def standings_export(system, leagueId):
     # Decompress gzip bytes stream
@@ -263,6 +265,7 @@ def standings_export(system, leagueId):
 
     return 'ok', 200
 
+# Weekly info export endpoint
 @app.route('/exports/<system>/<leagueId>/week/<weekType>/<weekNumber>/<dataType>', methods=['POST'])
 def week_export(system, leagueId, weekType, weekNumber, dataType):
     print(request.is_json)
@@ -273,10 +276,21 @@ def week_export(system, leagueId, weekType, weekNumber, dataType):
     gzip_f = gzip.GzipFile(fileobj=buf)
     data = gzip_f.read()
     data = data.decode('utf-8')
-    print(data)
+    weeks = json.loads(data)
+    del data
+
+    weekly_ref = cfm.child(f'weeks/{weekType}/{weekNumber}/{dataType}')
+    if dataType.lower() == 'schedules':
+        schedules = weeks['gameScheduleInfoList']
+        
+        for i, game in enumerate(schedules):
+            weekly_ref.update({i: game}) 
+
+    elif dataType.lower() == 'teamstats':
+        team_stats = weeks['teamStatInfoList']
+        print(team_stats)
 
     return 'ok', 200
-
 
 def send_message(msg):
     url = 'https://api.groupme.com/v3/bots/post'
