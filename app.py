@@ -77,7 +77,7 @@ def webhook():
                 send_message('Sorry, an error occurred processing your request.')
 
         else:
-           send_message("Sorry, I couldn't find a team name associated with your request."
+           send_message("Sorry, I couldn't find a conference associated with your request."
                         " Use '/help' to get a list of commands.")
 
     # Help prompt
