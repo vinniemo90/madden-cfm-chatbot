@@ -16,6 +16,8 @@
         "'/teams <team name>' = general team info (e.g. name, ovr. rating, and owner)",
         "'/injuries <team name>' = number of players injured",
         "'/record <team name>' = team record",
-        "'/cap <team name>' = team cap info"
+        "'/cap <team name>' = team cap info",
+        "'/standings <conference>' = conference standings",
+        "'/stats <team name>' = team season stats" 
     ]
 }
