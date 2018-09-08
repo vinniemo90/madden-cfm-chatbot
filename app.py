@@ -125,9 +125,9 @@ def webhook():
                 team_standings_snapshot = cfm.child('standings').child(team_id).get()
 
                 team_cap_dict['Team'] = team_standings_snapshot['teamName']
-                team_cap_dict['Cap Room'] = team_standings_snapshot['capRoom']
-                team_cap_dict['Cap Spent'] = team_standings_snapshot['capSpent']
-                team_cap_dict['Cap Available'] = team_standings_snapshot['capAvailable']
+                team_cap_dict['Cap Room'] = '{:,}'.format(team_standings_snapshot['capRoom'])
+                team_cap_dict['Cap Spent'] = '{:,}'.format(team_standings_snapshot['capSpent'])
+                team_cap_dict['Cap Available'] = '{:,}'.format(team_standings_snapshot['capAvailable'])
 
                 team_cap = [ f'{key}: {val}' for key, val in team_cap_dict.items() ]
                 send_message('\n'.join(team_cap))
