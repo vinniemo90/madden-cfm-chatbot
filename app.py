@@ -55,6 +55,34 @@ def webhook():
         msg = f"{data['name']}, you sent '{data['text']}'"
         send_message(msg)
 
+    elif data['name'] != 'John Madden' and ('/schedule week' in data['text'].lower() or '/schedule wk' in data['text'].lower()):
+        msg = data['text'].lower().split()
+        func_index = msg.index('/schedule')
+        if(len(msg) > func_index + 2):
+            try:
+                team_snapshot = cfm.child('teams').get()
+                user_team_ids = [ team['teamId'] for team_id, team in team_snapshot.items() if not team['userName'] ]
+                schedule_snapshot = cfm.child(f'weeks/reg/{msg[func_index + 2]}/schedules').get()
+
+                user_games = []
+                for game, game_info in schedule_snapshot.items():
+                    if game_info['awayTeamId'] in user_team_ids and game_info['homeTeamId'] in user_team_ids:
+                        user_games.append((game_info['homeTeamId'], game_info['awayTeamId']))
+
+                schedule = []
+                for home_team_id, away_team_id in user_games:
+                    schedule.append(f"{team_snapshot[home_team_id]['nickName']} vs. {team_snapshot[away_team_id]['nickName']}")
+                
+                send_message('\n'.join(schedule))
+            
+            except Exception as e:
+                print(e)
+                send_message('Sorry, an error occurred processing your request.')
+
+        else:
+            send_message("Sorry, I couldn't find a team name associated with your request."
+                        " Use '/help' to get a list of commands.")
+
     # Standings
     elif data['name'] != 'John Madden' and '/standings' in data['text'].lower():
         msg = data['text'].lower().split()
