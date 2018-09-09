@@ -63,9 +63,9 @@ def webhook():
                 team_snapshot = cfm.child('teams').get()
                 user_team_ids = [ team['teamId'] for team_id, team in team_snapshot.items() if not team['userName'] ]
                 schedule_snapshot = cfm.child(f'weeks/reg/{msg[func_index + 2]}/schedules').get()
-                print(schedule_snapshot)
+                
                 user_games = []
-                for game, game_info in schedule_snapshot.items():
+                for game_info in schedule_snapshot:
                     if game_info['awayTeamId'] in user_team_ids and game_info['homeTeamId'] in user_team_ids:
                         user_games.append((game_info['homeTeamId'], game_info['awayTeamId']))
 
