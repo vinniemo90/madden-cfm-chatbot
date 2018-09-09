@@ -55,6 +55,7 @@ def webhook():
         msg = f"{data['name']}, you sent '{data['text']}'"
         send_message(msg)
 
+    # User game schedule for the week
     elif data['name'] != 'John Madden' and ('/schedule week' in data['text'].lower() or '/schedule wk' in data['text'].lower()):
         msg = data['text'].lower().split()
         func_index = msg.index('/schedule')
@@ -69,12 +70,11 @@ def webhook():
                 for game_info in schedule_snapshot:
                     if game_info['awayTeamId'] in user_team_ids and game_info['homeTeamId'] in user_team_ids:
                         user_games.append((game_info['homeTeamId'], game_info['awayTeamId']))
-                        print('finished if statement')
 
                 if user_games:
                     for home_team_id, away_team_id in user_games:
-                        print('inside team mapping')
-                        schedule.append(f"{team_snapshot[home_team_id]['nickName']} vs. {team_snapshot[away_team_id]['nickName']}")
+                        schedule.append(f"{team_snapshot[str(home_team_id)]['nickName']} vs. {team_snapshot[str(away_team_id)]['nickName']}")
+
                 else:
                     schedule.append(f"No user vs. user games were found for week {msg[func_index + 2]}")
                 
