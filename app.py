@@ -61,19 +61,24 @@ def webhook():
         if(len(msg) > func_index + 2):
             try:
                 team_snapshot = cfm.child('teams').get()
-                user_team_ids = [ team['teamId'] for team_id, team in team_snapshot.items() if not team['userName'] ]
+                user_team_ids = [ team['teamId'] for team_id, team in team_snapshot.items() if team['userName'] ]
                 schedule_snapshot = cfm.child(f'weeks/reg/{msg[func_index + 2]}/schedules').get()
+                print(schedule_snapshot)
+                #schedule_snapshot = cfm.child('weeks').child('reg').child(f'{msg[func_index + 2]}').child('schedules').get()
                 
                 user_games = []
-                for game_info in schedule_snapshot:
+                schedule = []
+                for game, game_info in schedule_snapshot.items():
                     if game_info['awayTeamId'] in user_team_ids and game_info['homeTeamId'] in user_team_ids:
                         user_games.append((game_info['homeTeamId'], game_info['awayTeamId']))
                         print('finished if statement')
 
-                schedule = []
-                for home_team_id, away_team_id in user_games:
-                    print('inside team mapping for loop')
-                    schedule.append(f"{team_snapshot[home_team_id]['nickName']} vs. {team_snapshot[away_team_id]['nickName']}")
+                if user_games:
+                    for home_team_id, away_team_id in user_games:
+                        print('inside team mapping')
+                        schedule.append(f"{team_snapshot[home_team_id]['nickName']} vs. {team_snapshot[away_team_id]['nickName']}")
+                else:
+                    schedule.append(f"No user vs. user games were found for week {msg[func_index + 2]}")
                 
                 send_message('\n'.join(schedule))
             
