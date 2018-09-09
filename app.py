@@ -68,9 +68,11 @@ def webhook():
                 for game_info in schedule_snapshot:
                     if game_info['awayTeamId'] in user_team_ids and game_info['homeTeamId'] in user_team_ids:
                         user_games.append((game_info['homeTeamId'], game_info['awayTeamId']))
+                        print('finished if statement')
 
                 schedule = []
                 for home_team_id, away_team_id in user_games:
+                    print('inside team mapping for loop')
                     schedule.append(f"{team_snapshot[home_team_id]['nickName']} vs. {team_snapshot[away_team_id]['nickName']}")
                 
                 send_message('\n'.join(schedule))
