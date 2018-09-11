@@ -92,7 +92,7 @@ def webhook():
     elif data['name'] != 'John Madden' and '/standings' in data['text'].lower():
         msg = data['text'].lower().split()
         func_index = msg.index('/standings')
-        if(len(msg) > func_index + 1):
+        if(len(msg) > func_index + 1) and (msg[func_index + 1].lower() != 'nfl'):
             try:
                 conf_map_snapshot = cfm.child('conferenceMap').get()
                 conf_id = conf_map_snapshot[msg[func_index + 1].lower()]
@@ -110,8 +110,19 @@ def webhook():
                 send_message('Sorry, an error occurred processing your request.')
 
         else:
-           send_message("Sorry, I couldn't find a conference associated with your request."
-                        " Use '/help' to get a list of commands.")
+            try:
+                standings_info_snapshot = cfm.child('standings').get()
+
+                nfl_teams = [ (team['rank'], team['teamName']) for team_id, team in standings_info_snapshot.items() if int(team['rank']) < 19 ]
+                sorted_teams = sorted(nfl_teams, key=lambda tup: tup[0])
+                
+                team_standings = [ f"{team[0]}. {team[1]}" for team in sorted_teams ]
+
+                send_message('\n'.join(team_standings))
+            
+            except Exception as e:
+                print(e)
+                send_message('Sorry, an error occurred processing your request.')
 
     # Help prompt
     elif data['name'] != 'John Madden' and '/help' in data['text'].lower():
