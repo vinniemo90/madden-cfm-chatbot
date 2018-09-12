@@ -3,6 +3,7 @@ import json
 import firebase_admin
 import io
 import gzip
+import requests
 
 from firebase_admin import credentials
 from firebase_admin import db
@@ -13,6 +14,10 @@ from urllib.request import Request, urlopen
 from flask import Flask, request
 
 app = Flask(__name__)
+
+# GroupMe info
+groupme_token = os.getenv('GROUPME_TOKEN')
+groupme_group_id = os.getenv('GROUPME_GROUP_ID')
 
 # Create firebase creds file
 firebase_creds = {
@@ -51,9 +56,12 @@ def webhook():
     data = request.get_json()
 
     # We don't want to reply to ourselves:
-    if data['name'] != 'John Madden' and 'john madden' in data['text'].lower():
-        msg = f"{data['name']}, you sent '{data['text']}'"
-        send_message(msg)
+    if data['name'] != 'John Madden' and 'changed name to' in data['text'].lower():
+        print('Name change occurred')
+        print(data)
+        request_params = {'token': groupme_token}
+        response_messages = requests.get(f'https://api.groupme.com/v3/groups/{groupme_group_id}', params = request_params).json()['response']['members']
+        #send_message(msg)
 
     # User game schedule for the week
     elif data['name'] != 'John Madden' and ('/schedule week' in data['text'].lower() or '/schedule wk' in data['text'].lower()):
