@@ -55,13 +55,13 @@ cfm = db.reference()
 def webhook():
     data = request.get_json()
 
-    # We don't want to reply to ourselves:
-    if data['name'] != 'John Madden' and 'changed name to' in data['text'].lower():
-        print('Name change occurred')
-        print(data)
+    # Update users on GroupMe name change
+    if data['sender_id'].lower() == 'system' and ('changed name to' in data['text'].lower() or 'added' in data['text'].lower()):
         request_params = {'token': groupme_token}
-        response_messages = requests.get(f'https://api.groupme.com/v3/groups/{groupme_group_id}', params = request_params).json()['response']['members']
-        #send_message(msg)
+        group_members = requests.get(f'https://api.groupme.com/v3/groups/{groupme_group_id}', params = request_params).json()['response']['members']
+        
+        groupme_users_ref = cfm.child('groupMeUsers')
+        groupme_users_ref.update(group_members)
 
     # User game schedule for the week
     elif data['name'] != 'John Madden' and ('/schedule week' in data['text'].lower() or '/schedule wk' in data['text'].lower()):
