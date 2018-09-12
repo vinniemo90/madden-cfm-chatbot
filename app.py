@@ -60,8 +60,7 @@ def webhook():
         request_params = {'token': groupme_token}
         group_members = requests.get(f'https://api.groupme.com/v3/groups/{groupme_group_id}', params = request_params).json()['response']['members']
         
-        groupme_users_ref = cfm.child('groupMeUsers')
-        groupme_users_ref.update(group_members)
+        cfm.update({'groupMeUsers': group_members})
 
     # User game schedule for the week
     elif data['name'] != 'John Madden' and ('/schedule week' in data['text'].lower() or '/schedule wk' in data['text'].lower()):
