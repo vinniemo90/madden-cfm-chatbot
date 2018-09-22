@@ -227,7 +227,26 @@ def webhook():
                 send_message('Sorry, an error occurred processing your request.')
 
         else:
-            send_message("Sorry, I couldn't find a team name associated with your request."
+            send_message("Sorry, I couldn't find a week associated with your request."
+                        " Use '/help' to get a list of commands.")
+
+    # User game scores for the week
+    elif data['name'] != 'John Madden' and ('/scores week' in data['text'].lower() or '/scores wk' in data['text'].lower()):
+        print('Scores keyword found')
+        msg = data['text'].lower().split()
+        func_index = msg.index('/scores')
+        if(len(msg) > func_index + 2):
+            try:
+                print(f'Retrieving user game scores for wk {msg[func_index + 2]}')
+                schedule = get_user_scores('reg', msg[func_index + 2])
+                send_message('\n'.join(schedule))
+            
+            except Exception as e:
+                print(e)
+                send_message('Sorry, an error occurred processing your request.')
+
+        else:
+            send_message("Sorry, I couldn't find a week associated with your request."
                         " Use '/help' to get a list of commands.")
 
     # Standings
@@ -424,8 +443,6 @@ def webhook():
             send_message("Sorry, I couldn't find a team name associated with your request."
                         " Use '/help' to get a list of commands.")
 
-
-
     return 'ok', 200
 
 # Team info export endpoint
@@ -513,6 +530,33 @@ def get_help_prompt():
     with open('cfm-rules.json') as rules:
             cfm_rules = json.load(rules)
             return cfm_rules['help prompt']
+
+def get_user_scores(week_type, week_number):
+    ''' Get user vs. user game scores and return as list '''
+    try:
+        team_snapshot = cfm.child('teams').get()
+        user_team_ids = [ team['teamId'] for team_id, team in team_snapshot.items() if team['userName'] ]
+        schedule_snapshot = cfm.child(f'weeks/{week_type}/{week_number}/schedules').get()
+        
+        user_games = []
+        schedule = []
+        for game_info in schedule_snapshot:
+            if game_info['awayTeamId'] in user_team_ids and game_info['homeTeamId'] in user_team_ids:
+                user_games.append((game_info['homeTeamId'], game_info['homeScore'], game_info['awayTeamId'], game_info['awayScore']))
+
+        if user_games:
+            for home_team_id, home_score, away_team_id, away_score in user_games:
+                schedule.append(f"{team_snapshot[str(home_team_id)]['nickName']} {home_score} vs. {team_snapshot[str(away_team_id)]['nickName']} {away_score}")
+
+        else:
+            schedule.append(f"No user vs. user games were found for {week_type} week {week_number}")
+
+    except Exception as e:
+        print(e)
+        schedule.append('Sorry, an error occurred retrieving user games.')
+
+    finally:
+        return schedule
 
 def get_user_games(week_type, week_number):
     ''' Get user vs. user game schedule and return as list '''
