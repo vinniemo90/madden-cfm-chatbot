@@ -79,7 +79,7 @@ def webhook():
     # Weekly Advance
     elif data['name'] != 'John Madden' and '/advance' in data['text'].lower():
         print('Advance keyword found')
-        msg = data.lower().split()
+        msg = data['text'].lower().split()
         func_index = msg.index('/advance')
         schedule = []
         if(len(msg) > func_index + 1) and (msg[func_index + 1].lower() == 'pre'):
