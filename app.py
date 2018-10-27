@@ -210,26 +210,44 @@ def webhook():
             except Exception as e:
                 print(e)
                 send_message('Sorry, an error occurred processing your request.')
+    # Schedule
+    elif data['name'] != 'John Madden' and '/schedule' in data['text'].lower():
+        if '/schedule week' in data['text'].lower() or '/schedule wk' in data['text'].lower():
+            print('Schedule week keyword found')
+            msg = data['text'].lower().split()
+            func_index = msg.index('/schedule')
+            if(len(msg) > func_index + 2):
+                try:
+                    print(f'Retrieving user game schedule for wk {msg[func_index + 2]}')
+                    schedule = get_user_games('reg', msg[func_index + 2])
+                    send_message('\n'.join(schedule))
+                
+                except Exception as e:
+                    print(e)
+                    send_message('Sorry, an error occurred processing your request.')
 
-    # User game schedule for the week
-    elif data['name'] != 'John Madden' and ('/schedule week' in data['text'].lower() or '/schedule wk' in data['text'].lower()):
-        print('Schedule keyword found')
-        msg = data['text'].lower().split()
-        func_index = msg.index('/schedule')
-        if(len(msg) > func_index + 2):
-            try:
-                print(f'Retrieving user game schedule for wk {msg[func_index + 2]}')
-                schedule = get_user_games('reg', msg[func_index + 2])
-                send_message('\n'.join(schedule))
-            
-            except Exception as e:
-                print(e)
-                send_message('Sorry, an error occurred processing your request.')
-
+            else:
+                send_message("Sorry, I couldn't find a week associated with your request."
+                            " Use '/help' to get a list of commands.")
         else:
-            send_message("Sorry, I couldn't find a week associated with your request."
-                        " Use '/help' to get a list of commands.")
+            print('Schedule keyword found')
+            msg = data['text'].lower().split()
+            func_index = msg.index('/schedule')
+            if(len(msg) > func_index + 1):
+                try:
+                    print(f'Retrieving season schedule for {msg[func_index + 1]}')
+                    team_map_snapshot = cfm.child('teamMap').get()
+                    team_id = team_map_snapshot[msg[func_index + 1].lower()]
+                    schedule = get_team_schedule(team_id)
+                    send_message('\n'.join(schedule))
+                
+                except Exception as e:
+                    print(e)
+                    send_message('Sorry, an error occurred processing your request.')
 
+            else:
+                send_message("Sorry, I couldn't find a team associated with your request."
+                            " Use '/help' to get a list of commands.")
     # User game scores for the week
     elif data['name'] != 'John Madden' and ('/scores week' in data['text'].lower() or '/scores wk' in data['text'].lower()):
         print('Scores keyword found')
@@ -580,7 +598,44 @@ def get_user_games(week_type, week_number):
 
     except Exception as e:
         print(e)
+        schedule.clear()
         schedule.append('Sorry, an error occurred retrieving user games.')
 
     finally:
         return schedule
+
+def get_team_schedule(team_id):
+    ''' Get team schedule and return as list '''
+    try:
+        print('Get team schedule as team ids')
+        season_schedule_team_ids = []
+        schedule_snapshot = cfm.child('weeks/reg').get()
+        weekly_schedule = [ week['schedules'] for week in schedule_snapshot[1:18] if week != None]
+        for week in weekly_schedule:
+            # print(schedule_snapshot)
+            for i, game in enumerate(week):
+                if game['homeTeamId'] == int(team_id):
+                    season_schedule_team_ids.append((game['weekIndex'], game['awayTeamId']))
+                    break
+                elif game['awayTeamId'] == int(team_id):
+                    season_schedule_team_ids.append((game['weekIndex'], game['homeTeamId']))
+                    break
+                elif i == (len(week) - 1):
+                    season_schedule_team_ids.append((game['weekIndex'], 'Bye'))
+
+        print('Get opponent team names')
+        season_schedule_team_names = []
+        teams_snapshot = cfm.child('teams').get()
+        for wk_num, opp_team_id in season_schedule_team_ids:
+            if(opp_team_id == 'Bye'):
+                season_schedule_team_names.append(f'wk {wk_num + 1}: {opp_team_id}')
+            else:
+                season_schedule_team_names.append(f"wk {wk_num + 1}: {teams_snapshot[str(opp_team_id)]['displayName']}")
+
+    except Exception as e:
+        print(e)
+        season_schedule_team_names.clear()
+        season_schedule_team_names.append('Sorry, an error occurred retrieving user games.')
+
+    finally:
+        return season_schedule_team_names
