@@ -1,14 +1,6 @@
 {
     "league rules":[
-        "24 hour advance",
-        "Draft first 22 picks - FA wide open",
-        "No user CPU games - all games will be simmed with user force W and no injuries",
-        "3 trades allowed per year (2 user & 1 CPU). Use or lose trades. All trades posted in chat.",
-        "User vs. user games will be force win for the most available user.",
-        "No WR to TE position change, unless < 90 speed",
-        "No DB to LB position change, unless >= 215 lbs",
-        "Quit games - 1st and 2nd quit games receive force L. 2nd quit league can vote to boot. 3rd quit is automatic boot",
-        "Chew clock only allowed in 4th quarter @ 2 min mark."
+        "Ain't no rules bih!"
     ],
     "help prompt":[
         "I am the Madden 19 GroupMe chat bot created by TG4 Solutions. I am here to help you stay connected with your Madden Connected Franchise. Below you can find a list of commands",
@@ -18,6 +10,8 @@
         "'/record <team name>' = team record",
         "'/cap <team name>' = team cap info",
         "'/standings <conference>' = conference standings",
-        "'/stats <team name>' = team season stats" 
+        "'/stats <team name>' = team season stats",
+        "'/schedule <team name>' = team schedule",
+        "'/schedule wk <week number>' = user vs. user schedule" 
     ]
 }
