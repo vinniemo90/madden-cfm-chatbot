@@ -571,6 +571,7 @@ def get_user_scores(week_type, week_number):
 
     except Exception as e:
         print(e)
+        schedule.clear()
         schedule.append('Sorry, an error occurred retrieving user games.')
 
     finally:
