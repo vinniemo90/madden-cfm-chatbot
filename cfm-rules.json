@@ -12,6 +12,7 @@
         "'/standings <conference>' = conference standings",
         "'/stats <team name>' = team season stats",
         "'/schedule <team name>' = team schedule",
-        "'/schedule wk <week number>' = user vs. user schedule" 
+        "'/schedule wk <week number>' = user vs. user schedule",
+        "'/advance' = advance weekly schedule and display current week's schedule (doesn't advance actual week)"
     ]
 }
