@@ -522,16 +522,8 @@ def week_export(system, leagueId, weekType, weekNumber, dataType):
         for i, game in enumerate(schedules):
             weekly_ref.update({i: game}) 
 
-    # elif dataType.lower() == 'teamstats':
-    #     team_stats = weeks['teamStatInfoList']
-    #     print(f'---TEAM STATS--- {team_stats}')
-
-    # elif dataType.lower() == 'defense':
-    #     print(f"---DEFENCSE--- {weeks['playerDefensiveStatInfoList']}")
-
     return 'ok', 200
 
-# app.post('/:username/:platform/:leagueId/freeagents/roster', (req, res)
 @app.route('/exports/<system>/<leagueId>/freeagents/roster', methods=['POST'])
 def free_agent_export(system, leagueId):
     print('------ FREE AGENTS -----')
@@ -545,7 +537,6 @@ def free_agent_export(system, leagueId):
 
     return 'ok', 200
 
-# app.post('/:username/:platform/:leagueId/team/:teamId/roster', (req, res)
 # Weekly info export endpoint
 @app.route('/exports/<system>/<leagueId>/team/<teamId>/roster', methods=['POST'])
 def roster_export(system, leagueId, teamId):
