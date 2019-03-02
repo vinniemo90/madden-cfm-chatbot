@@ -532,6 +532,18 @@ def week_export(system, leagueId, weekType, weekNumber, dataType):
     return 'ok', 200
 
 # app.post('/:username/:platform/:leagueId/freeagents/roster', (req, res)
+@app.route('/exports/<system>/<leagueId>/freeagents/roster', methods=['POST'])
+def free_agent_export(system, leagueId):
+    # Decompress gzip bytes stream
+    # buf = io.BytesIO(request.data)
+    # gzip_f = gzip.GzipFile(fileobj=buf)
+    # data = gzip_f.read()
+    # data = data.decode('utf-8')
+    # free_agents = json.loads(data)
+    # del data
+
+    return 'ok', 200
+
 # app.post('/:username/:platform/:leagueId/team/:teamId/roster', (req, res)
 # Weekly info export endpoint
 @app.route('/exports/<system>/<leagueId>/team/<teamId>/roster', methods=['POST'])
