@@ -544,7 +544,10 @@ def roster_export(system, leagueId, teamId):
     roster = json.loads(data)
     del data
 
-    cfm.update({'roster': roster})
+    rosters_ref = cfm.child('rosters')
+    rosters_ref.update({teamId: roster['rosterInfoList']})
+
+    #cfm.update({'roster': roster['rosterInfoList']})
     # weekly_ref = cfm.child(f'weeks/{weekType}/{weekNumber}/{dataType}')
     # if dataType.lower() == 'schedules':
     #     schedules = weeks['gameScheduleInfoList']
