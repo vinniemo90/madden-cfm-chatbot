@@ -512,6 +512,7 @@ def week_export(system, leagueId, weekType, weekNumber, dataType):
     data = gzip_f.read()
     data = data.decode('utf-8')
     weeks = json.loads(data)
+    print(weeks)
     del data
 
     weekly_ref = cfm.child(f'weeks/{weekType}/{weekNumber}/{dataType}')
@@ -521,12 +522,12 @@ def week_export(system, leagueId, weekType, weekNumber, dataType):
         for i, game in enumerate(schedules):
             weekly_ref.update({i: game}) 
 
-    elif dataType.lower() == 'teamstats':
-        team_stats = weeks['teamStatInfoList']
-        print(f'---TEAM STATS--- {team_stats}')
+    # elif dataType.lower() == 'teamstats':
+    #     team_stats = weeks['teamStatInfoList']
+    #     print(f'---TEAM STATS--- {team_stats}')
 
-    elif dataType.lower() == 'defense':
-        print(f"---DEFENCSE--- {weeks['playerDefensiveStatInfoList']}")
+    # elif dataType.lower() == 'defense':
+    #     print(f"---DEFENCSE--- {weeks['playerDefensiveStatInfoList']}")
 
     return 'ok', 200
 
@@ -544,6 +545,7 @@ def roster_export(system, leagueId, teamId):
     print(roster)
     del data
 
+    cfm.update({'roster': roster})
     # weekly_ref = cfm.child(f'weeks/{weekType}/{weekNumber}/{dataType}')
     # if dataType.lower() == 'schedules':
     #     schedules = weeks['gameScheduleInfoList']
