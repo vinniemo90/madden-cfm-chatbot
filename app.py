@@ -534,6 +534,7 @@ def week_export(system, leagueId, weekType, weekNumber, dataType):
 # app.post('/:username/:platform/:leagueId/freeagents/roster', (req, res)
 @app.route('/exports/<system>/<leagueId>/freeagents/roster', methods=['POST'])
 def free_agent_export(system, leagueId):
+    print('------ FREE AGENTS -----')
     # Decompress gzip bytes stream
     # buf = io.BytesIO(request.data)
     # gzip_f = gzip.GzipFile(fileobj=buf)
@@ -558,21 +559,6 @@ def roster_export(system, leagueId, teamId):
 
     rosters_ref = cfm.child('rosters')
     rosters_ref.update({teamId: roster['rosterInfoList']})
-
-    #cfm.update({'roster': roster['rosterInfoList']})
-    # weekly_ref = cfm.child(f'weeks/{weekType}/{weekNumber}/{dataType}')
-    # if dataType.lower() == 'schedules':
-    #     schedules = weeks['gameScheduleInfoList']
-        
-    #     for i, game in enumerate(schedules):
-    #         weekly_ref.update({i: game}) 
-
-    # elif dataType.lower() == 'teamstats':
-    #     team_stats = weeks['teamStatInfoList']
-    #     print(f'---TEAM STATS--- {team_stats}')
-
-    # elif dataType.lower() == 'defense':
-    #     print(f"---DEFENCSE--- {weeks['playerDefensiveStatInfoList']}")
 
     return 'ok', 200
 
