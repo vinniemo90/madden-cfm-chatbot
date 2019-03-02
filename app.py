@@ -542,7 +542,6 @@ def roster_export(system, leagueId, teamId):
     data = gzip_f.read()
     data = data.decode('utf-8')
     roster = json.loads(data)
-    print(roster)
     del data
 
     cfm.update({'roster': roster})
