@@ -504,8 +504,7 @@ def standings_export(system, leagueId):
 # Weekly info export endpoint
 @app.route('/exports/<system>/<leagueId>/week/<weekType>/<weekNumber>/<dataType>', methods=['POST'])
 def week_export(system, leagueId, weekType, weekNumber, dataType):
-    print(request.is_json)
-    print(request.mimetype)
+    print(dataType)
 
     # Decompress gzip bytes stream
     buf = io.BytesIO(request.data)
@@ -524,7 +523,10 @@ def week_export(system, leagueId, weekType, weekNumber, dataType):
 
     elif dataType.lower() == 'teamstats':
         team_stats = weeks['teamStatInfoList']
-        print(team_stats)
+        print(f'---TEAM STATS--- {team_stats}')
+
+    elif dataType.lower() == 'defense':
+        print(f"---DEFENCSE--- {weeks['playerDefensiveStatInfoList']}")
 
     return 'ok', 200
 
