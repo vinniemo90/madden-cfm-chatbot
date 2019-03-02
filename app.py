@@ -536,12 +536,12 @@ def week_export(system, leagueId, weekType, weekNumber, dataType):
 def free_agent_export(system, leagueId):
     print('------ FREE AGENTS -----')
     # Decompress gzip bytes stream
-    # buf = io.BytesIO(request.data)
-    # gzip_f = gzip.GzipFile(fileobj=buf)
-    # data = gzip_f.read()
-    # data = data.decode('utf-8')
-    # free_agents = json.loads(data)
-    # del data
+    buf = io.BytesIO(request.data)
+    gzip_f = gzip.GzipFile(fileobj=buf)
+    data = gzip_f.read()
+    data = data.decode('utf-8')
+    free_agents = json.loads(data)
+    del data
 
     return 'ok', 200
 
