@@ -530,6 +530,36 @@ def week_export(system, leagueId, weekType, weekNumber, dataType):
 
     return 'ok', 200
 
+# app.post('/:username/:platform/:leagueId/freeagents/roster', (req, res)
+# app.post('/:username/:platform/:leagueId/team/:teamId/roster', (req, res)
+# Weekly info export endpoint
+@app.route('/exports/<system>/<leagueId>/team/<teamId>/roster', methods=['POST'])
+def roster_export(system, leagueId, teamId):
+    # Decompress gzip bytes stream
+    buf = io.BytesIO(request.data)
+    gzip_f = gzip.GzipFile(fileobj=buf)
+    data = gzip_f.read()
+    data = data.decode('utf-8')
+    roster = json.loads(data)
+    print(roster)
+    del data
+
+    # weekly_ref = cfm.child(f'weeks/{weekType}/{weekNumber}/{dataType}')
+    # if dataType.lower() == 'schedules':
+    #     schedules = weeks['gameScheduleInfoList']
+        
+    #     for i, game in enumerate(schedules):
+    #         weekly_ref.update({i: game}) 
+
+    # elif dataType.lower() == 'teamstats':
+    #     team_stats = weeks['teamStatInfoList']
+    #     print(f'---TEAM STATS--- {team_stats}')
+
+    # elif dataType.lower() == 'defense':
+    #     print(f"---DEFENCSE--- {weeks['playerDefensiveStatInfoList']}")
+
+    return 'ok', 200
+
 def send_message(msg):
     url = 'https://api.groupme.com/v3/bots/post'
 
