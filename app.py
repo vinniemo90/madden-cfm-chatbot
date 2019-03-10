@@ -95,7 +95,7 @@ def webhook():
                 try:
                     print(f"Setting gamertag for {data['name']}")
                     groupme_users_snapshot = cfm.child('groupMeUsers').get()
-                    groupme_user = [ i for i, user in enumerate(groupme_users_snapshot) if user['name'] == data['name'] ]
+                    groupme_user = [ i for i, user in enumerate(groupme_users_snapshot) if user['nickname'] == data['name'] ]
                     groupme_users_snapshot[groupme_user[0]].update({'gamertag': msg[func_index + 1].lower()})
                 
                 except Exception as e:
