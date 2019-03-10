@@ -92,10 +92,11 @@ def get_team_schedule(db_root, team_id):
     try:
         print('Get team schedule as team ids')
         season_schedule_team_ids = []
+        season_schedule_team_names = []
         schedule_snapshot = db_root.child('weeks/reg').get()
         weekly_schedule = [ week['schedules'] for week in schedule_snapshot[1:18] if week != None]
         for week in weekly_schedule:
-            # print(schedule_snapshot)
+            print('Iterating through games for the week')
             for i, game in enumerate(week):
                 if game['homeTeamId'] == int(team_id):
                     season_schedule_team_ids.append((game['weekIndex'], game['awayTeamId']))
@@ -107,7 +108,6 @@ def get_team_schedule(db_root, team_id):
                     season_schedule_team_ids.append((game['weekIndex'], 'Bye'))
 
         print('Get opponent team names')
-        season_schedule_team_names = []
         teams_snapshot = db_root.child('teams').get()
         for wk_num, opp_team_id in season_schedule_team_ids:
             if(opp_team_id == 'Bye'):
