@@ -132,3 +132,26 @@ def get_injured_players(db_root, message, cmd_index):
 
     else:
         return constants.MISSING_TEAM_NAME_ERR_MSG
+
+def get_expiring_contracts(db_root, message, cmd_index):
+    if(len(message) > cmd_index + 1):
+        try:
+            print(f'Retrieving expiring contracts for {message[cmd_index + 1]}')
+            team_map_snapshot = db_root.child('teamMap').get()
+            team_id = team_map_snapshot[message[cmd_index + 1].lower()]
+            roster_snapshot = db_root.child('rosters').child(team_id).get()
+
+            contract_message = f"{message[cmd_index + 1]}' players with expiring contracts:"
+            expiring_contracts = [ f"{player['position']} {player['firstName']} {player['lastName']} ({player['playerBestOvr']} OVR)" 
+            for player in roster_snapshot 
+            if player['contractLength'] == 1 ]
+
+            expiring_contracts.insert(0, contract_message)
+            return '\n'.join(expiring_contracts)
+        
+        except Exception as e:
+            print(e)
+            return constants.UNEXPECTED_ERR_MSG
+
+    else:
+        return constants.MISSING_TEAM_NAME_ERR_MSG

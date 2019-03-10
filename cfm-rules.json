@@ -6,13 +6,15 @@
         "I am the Madden 19 GroupMe chat bot created by TG4 Solutions. I am here to help you stay connected with your Madden Connected Franchise. Below you can find a list of commands",
         "'/rules' = list of your league rules",
         "'/teams <team name>' = general team info (e.g. name, ovr. rating, and owner)",
-        "'/injuries <team name>' = number of players injured",
+        "'/injuries <team name>' = injured players",
         "'/record <team name>' = team record",
         "'/cap <team name>' = team cap info",
         "'/standings <conference>' = conference standings",
+        "'/standings' = league standings",
         "'/stats <team name>' = team season stats",
         "'/schedule <team name>' = team schedule",
         "'/schedule wk <week number>' = user vs. user schedule",
+        "'/resign <team name>' = players with expiring contracts",
         "'/advance' = advance weekly schedule and display current week's schedule (doesn't advance actual week)"
     ]
 }
