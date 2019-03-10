@@ -113,23 +113,21 @@ def get_injured_players(db_root, message, cmd_index):
     if(len(message) > cmd_index + 1):
         try:
             print(f'Retrieving injuries info for {message[cmd_index + 1]}')
-            injuries = []
             team_map_snapshot = db_root.child('teamMap').get()
             team_id = team_map_snapshot[message[cmd_index + 1].lower()]
             team_info_snapshot = db_root.child('teams').child(team_id).get()
             roster_snapshot = db_root.child('rosters').child(team_id).get()
 
-            injured_players = [ player for player in roster_snapshot if player['injuryLength'] != 0]
+            injured_players = [ 
+                {'Firt Name': player['firstName'],
+                'Last Name': player['lastName'],
+                'Position': player['position'],
+                'Overall': player['playerBestOvr'],
+                'Injury Length': player['injuryLength']} 
+            for player in roster_snapshot 
+            if player['injuryLength'] != 0]
 
-            for player in injured_players:
-                response_objects.player_dict['First Name'] = player['firstName']
-                response_objects.player_dict['Last Name'] = player['lastName']
-                response_objects.player_dict['Position'] = player['position']
-                response_objects.player_dict['Overall'] = player['playerBestOvr']
-                response_objects.player_dict['Injury Length'] = player['injuryLength']
-                injuries.append(response_objects.player_dict)
-
-            print(injuries)
+            print(injured_players)
             return f"{team_info_snapshot['displayName']} have {team_info_snapshot['injuryCount']} players injured"
         
         except Exception as e:
