@@ -88,6 +88,23 @@ def webhook():
         print('Updating groupme users info')
         cfm.update({'groupMeUsers': group_members})
 
+    # Set gamertag for groupme user
+    elif data['name'] != groupme_bot_name and '/gamertag' in data['text'].lower():
+        msg, func_index = get_command_index(data, '/gamertag')
+        if(len(msg) > func_index + 1):
+                try:
+                    print(f"Setting gamertag for {data['name']}")
+                    groupme_users_snapshot = cfm.child('groupMeUsers').get()
+                    groupme_user = [ i for i, user in enumerate(groupme_users_snapshot) if user['name'] == data['name'] ]
+                    groupme_users_snapshot[groupme_user[0]].update({'gamertag': msg[func_index + 1].lower()})
+                
+                except Exception as e:
+                    print(e)
+                    groupme.send_message(constants.UNEXPECTED_ERR_MSG)
+
+        else:
+            groupme.send_message(constants.MISSING_GAMERTAG_ERR_MSG)
+
     elif data['name'] != groupme_bot_name:
         command = [ cmd for cmd in SLASH_COMMANDS.keys() if cmd in data['text'] ]
         if command:

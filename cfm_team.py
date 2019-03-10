@@ -121,7 +121,7 @@ def get_injured_players(db_root, message, cmd_index):
             injury_message = f"{team_info_snapshot['displayName']} have {team_info_snapshot['injuryCount']} players injured:"
             injured_players = [ f"{player['position']} {player['firstName']} {player['lastName']} ({player['playerBestOvr']} OVR) {player['injuryLength']} wks" 
             for player in roster_snapshot 
-            if player['injuryLength'] != 0]
+            if player['injuryLength'] != 0 and player['isActive'] == False]
 
             injured_players.insert(0, injury_message)
             return '\n'.join(injured_players)
