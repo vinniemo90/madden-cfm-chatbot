@@ -94,6 +94,7 @@ def get_team_schedule(db_root, team_id):
         season_schedule_team_ids = []
         season_schedule_team_names = []
         schedule_snapshot = db_root.child('weeks/reg').get()
+        print('getting weekly schedule')
         weekly_schedule = [ week['schedules'] for week in schedule_snapshot[1:18] if week != None]
         for week in weekly_schedule:
             print('Iterating through games for the week')
@@ -137,6 +138,8 @@ def get_weekly_schedule(db_root, msg, func_index):
         try:
             print(f'Retrieving user game schedule for wk {msg[func_index + 2]}')
             schedule = get_user_games(db_root, 'reg', msg[func_index + 2])
+            print(f'schdule type {type(schedule)}')
+            print(schedule)
             return '\n'.join(schedule)
         
         except Exception as e:
