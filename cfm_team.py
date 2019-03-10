@@ -118,6 +118,7 @@ def get_injured_players(db_root, message, cmd_index):
             team_id = team_map_snapshot[message[cmd_index + 1].lower()]
             team_info_snapshot = db_root.child('teams').child(team_id).get()
             roster_snapshot = db_root.child('rosters').child(team_id).get()
+            print(roster_snapshot)
 
             injured_players = [ player for player in roster_snapshot if player['injuryLength'] != 0]
             for player in injured_players:
