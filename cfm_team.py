@@ -121,8 +121,8 @@ def get_injured_players(db_root, message, cmd_index):
 
             injured_players = [ player for player in roster_snapshot if player['injuryLength'] != 0]
             print('INJURED PLAYERS =====> ')
-            print(injured_players)
             for player in injured_players:
+                print(player)
                 response_objects.player_dict['First Name'] = player['firstName']
                 response_objects.player_dict['Last Name'] = player['lastName']
                 response_objects.player_dict['Position'] = player['position']
