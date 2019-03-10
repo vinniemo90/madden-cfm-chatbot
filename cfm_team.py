@@ -144,7 +144,7 @@ def get_expiring_contracts(db_root, message, cmd_index):
             contract_message = f"{message[cmd_index + 1]}' players with expiring contracts:"
             expiring_contracts = [ f"{player['position']} {player['firstName']} {player['lastName']} ({player['playerBestOvr']} OVR)" 
             for player in roster_snapshot 
-            if player['contractLength'] == 1 ]
+            if player['contractYearsLeft'] == 1 ]
 
             expiring_contracts.insert(0, contract_message)
             return '\n'.join(expiring_contracts)
