@@ -1,6 +1,5 @@
 import cfm_schedule
 import response_objects
-import groupme
 import constants
 
 def advance_to_preseason(db_root):

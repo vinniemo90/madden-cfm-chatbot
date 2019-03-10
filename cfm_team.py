@@ -1,5 +1,4 @@
 import response_objects
-import groupme
 import constants
 
 def get_team_info(db_root, message, cmd_index):

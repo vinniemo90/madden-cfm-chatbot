@@ -8,9 +8,11 @@ import requests
 import cfm_schedule
 import cfm_advance
 import cfm_team
+import cfm_standings
 import groupme
 import response_objects
 import constants
+import utils
 
 from firebase_admin import credentials
 from firebase_admin import db
@@ -47,6 +49,25 @@ firebase_admin.initialize_app(cred, {
     'databaseURL' : os.getenv('DATABASE_URL')
 })
 
+SLASH_COMMANDS = {
+    '/advance': cfm_advance.advance,
+    '/schedule week': cfm_schedule.get_weekly_schedule,
+    '/schedule wk': cfm_schedule.get_weekly_schedule,
+    '/schedule': cfm_schedule.get_season_schedule,
+    '/scores week': cfm_schedule.get_user_weekly_scores,
+    '/scores wk': cfm_schedule.get_user_weekly_scores,
+    '/standings afc': cfm_standings.get_conf_standings,
+    '/standings nfc': cfm_standings.get_conf_standings,
+    '/standings':cfm_standings.get_nfl_standings,
+    '/cap': cfm_team.get_team_cap,
+    '/teams': cfm_team.get_team_info,
+    '/stats': cfm_team.get_team_season_stats,
+    '/record': cfm_team.get_team_record,
+    '/injuries': cfm_team.get_injured_players,
+    '/help': utils.get_help_prompt,
+    '/rules': utils.get_league_rules
+}
+
 # Root db reference
 cfm = db.reference()
 
@@ -67,16 +88,16 @@ def webhook():
         cfm.update({'groupMeUsers': group_members})
 
     elif data['name'] != groupme_bot_name:
-        command = [ cmd for cmd in constants.SLASH_COMMANDS.keys() if cmd in data['text'] ]
+        command = [ cmd for cmd in SLASH_COMMANDS.keys() if cmd in data['text'] ]
         if command:
             slash_command = command[0]
             if (slash_command == '/help' or slash_command == '/rules'):
-                bot_response = constants.SLASH_COMMANDS[slash_command]()
+                bot_response = SLASH_COMMANDS[slash_command]()
                 groupme.send_message(bot_response)
 
             else:
                 msg, func_index = get_command_index(data, command[0])
-                bot_response = constants.SLASH_COMMANDS[slash_command](cfm, msg, func_index)
+                bot_response = SLASH_COMMANDS[slash_command](cfm, msg, func_index)
                 groupme.send_message(bot_response)
 
     return 'ok', 200
