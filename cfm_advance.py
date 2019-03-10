@@ -126,7 +126,7 @@ def advance(db_root, msg, func_index):
             elif week_type == 'playoffs':
                 week_number += 1
                 if week_number == 21:
-                    groupme.send_message('Pro Bowl Week')
+                    return 'Pro Bowl Week'
                 elif week_number == 18:
                     week_dict = {'weekNumber': week_number, 'weekType': 'playoffs'}
                     db_root.update({'league': week_dict})
