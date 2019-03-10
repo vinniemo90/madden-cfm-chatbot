@@ -28,7 +28,7 @@ Create firebase account at https://firebase.google.com.
 2. Enter project name and create project
 3. Under the develop tab select database
 4. Scroll down and chaoose create realtime database
-5. Start im test mode
+5. Start in test mode
 6. Make not of the database url
 7. Using the stacked menu on the right, import the firebase_import.json file from your github repo
 8. Click the gear next to Project Overview and select project settings
@@ -49,3 +49,6 @@ Create a Heroku account at signup.heroku.com.
 9. Navigate back to deploy tab and manually deploy the master branch, by clicking the deploy branch button
 
 ### Download the Madden 19 Madden Companion App
+Connect the Madden Companion App to your application server
+1. Navigate to the export tab of your franchise
+2. Set the export url (e.g. https://NAME-OF-HEROKU-APP.herokuapp.com/exports)
