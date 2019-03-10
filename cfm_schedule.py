@@ -95,7 +95,7 @@ def get_team_schedule(db_root, team_id):
         season_schedule_team_names = []
         schedule_snapshot = db_root.child('weeks/reg').get()
         print('getting weekly schedule')
-        weekly_schedule = [ week['schedules'] for week in schedule_snapshot.iloc[1:18] if week != None]
+        weekly_schedule = [ week['schedules'] for week in schedule_snapshot[1:18] if week != None]
         for week in weekly_schedule:
             print('Iterating through games for the week')
             for i, game in enumerate(week):
