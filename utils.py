@@ -9,7 +9,7 @@ def get_league_rules():
 
     with open('cfm-rules.json') as rules:
         cfm_rules = json.load(rules)
-        return cfm_rules['league rules']
+        return '\n'.join(cfm_rules['league rules'])
 
 def get_help_prompt():
     '''Get info regarding Madden GroupMe bot
@@ -20,4 +20,4 @@ def get_help_prompt():
 
     with open('cfm-rules.json') as rules:
         cfm_rules = json.load(rules)
-        return cfm_rules['help prompt']
+        return '\n'.join(cfm_rules['help prompt'])
