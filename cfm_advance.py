@@ -48,6 +48,7 @@ def advance_to_playoffs(db_root):
     return schedule + cfm_schedule.get_user_games(db_root, 'reg', '18')
     
 def advance(db_root, msg, func_index):
+    schedule = []
     if(len(msg) > func_index + 1) and (msg[func_index + 1].lower() == 'pre'):
         try:
             print('Advancing to the beginning of preseason')
