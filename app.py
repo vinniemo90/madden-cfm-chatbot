@@ -114,7 +114,8 @@ def webhook():
                 groupme.send_message(bot_response)
 
             else:
-                msg, func_index = get_command_index(data, command[0])
+                base_command = command[0].split()[0]
+                msg, func_index = get_command_index(data, base_command)
                 bot_response = SLASH_COMMANDS[slash_command](cfm, msg, func_index)
                 groupme.send_message(bot_response)
 
