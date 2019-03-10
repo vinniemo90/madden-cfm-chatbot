@@ -120,9 +120,8 @@ def get_injured_players(db_root, message, cmd_index):
             roster_snapshot = db_root.child('rosters').child(team_id).get()
 
             injured_players = [ player for player in roster_snapshot if player['injuryLength'] != 0]
-            print('INJURED PLAYERS =====> ')
+
             for player in injured_players:
-                print(player)
                 response_objects.player_dict['First Name'] = player['firstName']
                 response_objects.player_dict['Last Name'] = player['lastName']
                 response_objects.player_dict['Position'] = player['position']
@@ -130,7 +129,7 @@ def get_injured_players(db_root, message, cmd_index):
                 response_objects.player_dict['Injury Length'] = player['injuryLength']
                 injuries.append(response_objects.player_dict)
 
-            print('\n'.join(injuries))
+            print(injuries)
             return f"{team_info_snapshot['displayName']} have {team_info_snapshot['injuryCount']} players injured"
         
         except Exception as e:
