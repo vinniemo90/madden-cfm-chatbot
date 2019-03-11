@@ -101,16 +101,16 @@ def webhook():
 
                     user_to_team_map = {}
                     teams_snapshot = cfm.child('teams').get()
-                    print(teams_snapshot)
+
                     print('Find user teams')
                     for team_id, team in teams_snapshot.items():
                         if team['userName']:
-                            user_to_team_map[team['userName']] = team_id
+                            user_to_team_map[team['userName'].lower()] = team_id
                     
                     print('Associate users to teams')
                     for i, user in enumerate(groupme_users_snapshot):
                         if(user.get('gamertag')):
-                            team_id = user_to_team_map.get(user['gamertag'])
+                            team_id = user_to_team_map.get(user['gamertag'].lower())
                             print(team_id)
                             if team_id:
                                 groupme_users_snapshot[i].update({'teamId': team_id})
