@@ -7,7 +7,7 @@ def get_assigned_teams(db_root, message, cmd_index):
     team_snapshot = db_root.child('teams').get()
 
     try:
-        users = [ {'nickname': user['nickname'], 'teamId': str(user['teamId'])} for user in groupme_users_snapshot if user.get('gamertag') ]
+        users = [ {'nickname': user['nickname'], 'teamId': user['teamId']} for user in groupme_users_snapshot if user.get('gamertag') ]
         for user in users:
             assigned_teams.append(f"{user['nickname']} => {team_snapshot[user['teamId']]['displayName']}")
         return '\n'.join(assigned_teams)
