@@ -4,12 +4,12 @@ import constants
 def get_assigned_teams(db_root, message, cmd_index):
     assigned_teams = []
     groupme_users_snapshot = db_root.child('groupMeUsers').get()
-    team_snapshot = db_root.child('teams').get()
 
     try:
         users = [ {'nickname': user['nickname'], 'teamId': user['teamId']} for user in groupme_users_snapshot if user.get('gamertag') ]
         for user in users:
-            assigned_teams.append(f"{user['nickname']} => {team_snapshot[user['teamId']]['displayName']}")
+            team_snapshot = db_root.child('teams').child(user['team_id']).get()
+            assigned_teams.append(f"{user['nickname']} => {team_snapshot['displayName']}")
         return '\n'.join(assigned_teams)
 
     except Exception as e:
