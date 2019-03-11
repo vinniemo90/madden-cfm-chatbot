@@ -64,8 +64,25 @@ def get_user_games(db_root, week_type, week_number):
                 user_games.append((game_info['homeTeamId'], game_info['awayTeamId']))
 
         if user_games:
+            user_teams = {}
+            groupme_users_snapshot = db_root.child('groupMeUsers').get()
+            for user in groupme_users_snapshot:
+                print('Creating dictionary of gamertags')
+                if user.get('teamId'):
+                    user_teams[user['teamId']] = user['nickname']
+
             for home_team_id, away_team_id in user_games:
-                schedule.append(f"{team_snapshot[str(home_team_id)]['nickName']} vs. {team_snapshot[str(away_team_id)]['nickName']}")
+                if user_teams.get(home_team_id) and user_teams.get(away_team_id):
+                    schedule.append(f"{team_snapshot[str(home_team_id)]['nickName']} (@{user_teams[home_team_id]}) vs. {team_snapshot[str(away_team_id)]['nickName']} (@{user_teams[away_team_id]})")
+                
+                elif user_teams.get(home_team_id):
+                    schedule.append(f"{team_snapshot[str(home_team_id)]['nickName']} (@{user_teams[home_team_id]}) vs. {team_snapshot[str(away_team_id)]['nickName']}")
+                
+                elif user_teams.get(away_team_id):
+                    schedule.append(f"{team_snapshot[str(home_team_id)]['nickName']} vs. {team_snapshot[str(away_team_id)]['nickName']} (@{user_teams[away_team_id]})")
+                
+                else:
+                    schedule.append(f"{team_snapshot[str(home_team_id)]['nickName']} vs. {team_snapshot[str(away_team_id)]['nickName']}")
 
         else:
             schedule.append(f"No user vs. user games were found for {week_type} week {week_number}")
