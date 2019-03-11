@@ -1,6 +1,22 @@
 import response_objects
 import constants
 
+def get_assigned_teams(db_root, message, cmd_index):
+    assigned_teams = []
+    groupme_users_snapshot = db_root.child('groupMeUsers').get()
+    team_snapshot = db_root.child('teams').get()
+
+    try:
+        users = [ {'nickname': user['nickname'], 'teamId': str(user['teamId'])} for user in groupme_users_snapshot if user.get('gamertag') ]
+        for user in users:
+            assigned_teams.append(f"{user['nickname']} => {team_snapshot[user['teamId']]['displayName']}")
+        return '\n'.join(assigned_teams)
+
+    except Exception as e:
+        print(e)
+        return constants.UNEXPECTED_ERR_MSG
+    
+
 def get_team_info(db_root, message, cmd_index):
     '''Get general team specific info
     

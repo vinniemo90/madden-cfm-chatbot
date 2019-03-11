@@ -15,6 +15,7 @@
         "'/schedule <team name>' = team schedule",
         "'/schedule wk <week number>' = user vs. user schedule",
         "'/resign <team name>' = players with expiring contracts",
+        "'/gamertag <gamertag>' = assigns team to groupme"
         "'/advance' = advance weekly schedule and display current week's schedule (doesn't advance actual week)"
     ]
 }

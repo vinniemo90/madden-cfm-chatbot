@@ -66,7 +66,8 @@ SLASH_COMMANDS = {
     '/injuries': cfm_team.get_injured_players,
     '/help': utils.get_help_prompt,
     '/rules': utils.get_league_rules,
-    '/resign': cfm_team.get_expiring_contracts
+    '/resign': cfm_team.get_expiring_contracts,
+    '/users': cfm_team.get_assigned_teams
 }
 
 # Root db reference
