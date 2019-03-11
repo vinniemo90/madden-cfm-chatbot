@@ -110,6 +110,8 @@ def webhook():
                     print('Associate users to teams')
                     for i, user in enumerate(groupme_users_snapshot):
                         if(user.get('gamertag')):
+                            print(user.get('gamertag'))
+                            print(f'user team map ===> {user_to_team_map}')
                             team_id = user_to_team_map.get(user['gamertag'].lower())
                             print(team_id)
                             if team_id:
