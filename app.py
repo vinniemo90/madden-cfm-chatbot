@@ -109,9 +109,11 @@ def webhook():
                     
                     print('Associate users to teams')
                     for i, user in enumerate(groupme_users_snapshot):
-                        team_id = user_to_team_map.get(user['gamertag'])
-                        if team_id:
-                            groupme_users_snapshot[i].update({'teamId': team_id})
+                        if(user.get('gamertag')):
+                            team_id = user_to_team_map.get(user['gamertag'])
+                            print(team_id)
+                            if team_id:
+                                groupme_users_snapshot[i].update({'teamId': team_id})
 
                     cfm.update({'groupMeUsers': groupme_users_snapshot})
                     groupme.send_message(constants.GAMERTAG_SUCCESS_MESSAGE)
