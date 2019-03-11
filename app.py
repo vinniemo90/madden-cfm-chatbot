@@ -99,6 +99,7 @@ def webhook():
                     print(f'Groupme user index {groupme_user}')
                     groupme_users_snapshot[groupme_user[0]].update({'gamertag': msg[func_index + 1].lower()})
                     cfm.update({'groupMeUsers': groupme_users_snapshot})
+                    groupme.send_message(constants.GAMERTAG_SUCCESS_MESSAGE)
                 
                 except Exception as e:
                     print(e)
