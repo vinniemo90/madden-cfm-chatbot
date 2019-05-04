@@ -15,7 +15,11 @@ def advance_to_preseason(db_root):
     schedule = []
     db_root.update({'league': response_objects.pre_dict})
     schedule.append('Preseason Week 1 Schedule')
-    return schedule + cfm_schedule.get_user_games(db_root, 'pre', '1')
+    user_games = cfm_schedule.get_user_games(db_root, 'pre', '1')
+    if (user_games[0] == constants.USER_GAME_ERROR):
+        return user_games
+    else:
+        return schedule + user_games
 
 def advance_to_reg(db_root):
     '''Set internal league counter to week 1 of the regular season
@@ -30,7 +34,11 @@ def advance_to_reg(db_root):
     schedule = []
     db_root.update({'league': response_objects.reg_dict})
     schedule.append('Regular Season Week 1 Schedule')
-    return schedule + cfm_schedule.get_user_games(db_root, 'reg', '1')
+    user_games = cfm_schedule.get_user_games(db_root, 'reg', '1')
+    if (user_games[0] == constants.USER_GAME_ERROR):
+        return user_games
+    else:
+        return schedule + user_games
 
 def advance_to_playoffs(db_root):
     '''Set internal league counter to wildcard week of the playoffs
@@ -45,7 +53,11 @@ def advance_to_playoffs(db_root):
     schedule = []
     db_root.update({'league': response_objects.playoffs_dict})
     schedule.append('Wildcard Schedule')
-    return schedule + cfm_schedule.get_user_games(db_root, 'reg', '18')
+    user_games = cfm_schedule.get_user_games(db_root, 'reg', '18')
+    if (user_games[0] == constants.USER_GAME_ERROR):
+        return user_games
+    else:
+        return schedule + user_games
     
 def advance(db_root, msg, func_index):
     schedule = []
