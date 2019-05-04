@@ -94,7 +94,7 @@ def get_user_games(db_root, week_type, week_number):
     except Exception as e:
         print(e)
         schedule.clear()
-        schedule.append('Sorry, an error occurred retrieving user games.')
+        schedule.append(constants.USER_GAME_ERROR)
 
     finally:
         return schedule
