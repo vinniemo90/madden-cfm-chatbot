@@ -14,7 +14,7 @@ Login at https://dev.groupme.com/session/new
 4. Set callback url (https://NAME-OF-HEROKU-APP.herokuapp.com/)
 5. Set bot avatar image
 6. Click submit
-7. Make note of the group id
+7. Make note of the group id and bot id
 8. Click access token in the top right and make note of that value as well
 
 ### Create GitHub Account
