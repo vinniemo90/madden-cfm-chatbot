@@ -14,8 +14,8 @@ Login at https://dev.groupme.com/session/new
 4. Set callback url (https://NAME-OF-HEROKU-APP.herokuapp.com/)
 5. Set bot avatar image
 6. Click submit
-7. Make not of the group id
-8. Click access token in the top right and make not of that value as well
+7. Make note of the group id and bot id
+8. Click access token in the top right and make note of that value as well
 
 ### Create GitHub Account
 Create a GitHub account at github.com.
@@ -45,7 +45,7 @@ Create a Heroku account at signup.heroku.com.
 5. Click connect to GitHub
 6. Search for madden-cfm-chatbot repo and connect
 7. Go to the settings tab and reveal config vars
-8. Enter values for the following keys: 'FIREBASE_CREDS_TYPE', 'FIREBASE_PROJECT_ID', 'FIREBASE_PRIVATE_KEY_ID', 'FIREBASE_PRIVATE_KEY', 'FIREBASE_CLIENT_EMAIL', 'FIREBASE_CLIENT_ID', 'FIREBASE_AUTH_URI', 'FIREBASE_TOKEN_URI', 'FIREBASE_AUTH_PROVIDER', 'FIREBASE_CLIENT_CERT_URL', 'GROUPME_TOKEN', 'GROUPME_GROUP_ID', 'DATABASE_URL'
+8. Enter values for the following keys: 'FIREBASE_CREDS_TYPE', 'FIREBASE_PROJECT_ID', 'FIREBASE_PRIVATE_KEY_ID', 'FIREBASE_PRIVATE_KEY', 'FIREBASE_CLIENT_EMAIL', 'FIREBASE_CLIENT_ID', 'FIREBASE_AUTH_URI', 'FIREBASE_TOKEN_URI', 'FIREBASE_AUTH_PROVIDER', 'FIREBASE_CLIENT_CERT_URL', 'GROUPME_TOKEN', 'GROUPME_GROUP_ID', 'GROUPME_BOT_ID', 'DATABASE_URL'
 9. Navigate back to deploy tab and manually deploy the master branch, by clicking the deploy branch button
 
 ### Download the Madden 19 Madden Companion App
