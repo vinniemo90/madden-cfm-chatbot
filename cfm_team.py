@@ -7,7 +7,7 @@ def get_assigned_teams(db_root, message, cmd_index):
 
     try:
         print('Retrieving groupme user info')
-        users = [ {'nickname': user['nickname'], 'teamId': user['teamId']} for user in groupme_users_snapshot if user.get('gamertag') ]
+        users = [ {'nickname': user.get('nickname'), 'teamId': user.get('teamId')} for user in groupme_users_snapshot if user.get('gamertag') ]
         for user in users:
             print('find associated team')
             team_snapshot = db_root.child('teams').child(user['teamId']).get()
