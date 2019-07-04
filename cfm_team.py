@@ -2,6 +2,17 @@ import response_objects
 import constants
 
 def get_assigned_teams(db_root, message, cmd_index):
+    '''Get groupme users and their assigned teams
+    
+    Arguments:
+        db_root {Object} -- Reference to root of Firebase database
+        message {List} -- GroupMe message as list of strings
+        cmd_index {Number} -- Index of slash command in message list
+
+    Returns:
+        String -- user nickname => team name
+    '''
+
     assigned_teams = []
     groupme_users_snapshot = db_root.child('groupMeUsers').get()
 
@@ -30,6 +41,9 @@ def get_team_info(db_root, message, cmd_index):
         db_root {Object} -- Reference to root of Firebase database
         message {List} -- GroupMe message as list of strings
         cmd_index {Number} -- Index of slash command in message list
+
+    Returns:
+        String -- team info
     '''
 
     if(len(message) > cmd_index + 1):
@@ -60,6 +74,17 @@ def get_team_info(db_root, message, cmd_index):
         return constants.MISSING_TEAM_NAME_ERR_MSG
 
 def get_team_season_stats(db_root, message, cmd_index):
+    '''Get season stats for specific team
+    
+    Arguments:
+        db_root {Object} -- Reference to root of Firebase database
+        message {List} -- GroupMe message as list of strings
+        cmd_index {Number} -- Index of slash command in message list
+
+    Returns:
+        String -- season stats
+    '''
+
     if(len(message) > cmd_index + 1):
         try:
             print(f'Retrieving team season stats for {message[cmd_index + 1]}')
@@ -91,6 +116,17 @@ def get_team_season_stats(db_root, message, cmd_index):
         return constants.MISSING_TEAM_NAME_ERR_MSG
 
 def get_team_record(db_root, message, cmd_index):
+    '''Get team record
+    
+    Arguments:
+        db_root {Object} -- Reference to root of Firebase database
+        message {List} -- GroupMe message as list of strings
+        cmd_index {Number} -- Index of slash command in message list
+
+    Returns:
+        String -- team record
+    '''
+
     if(len(message) > cmd_index + 1):
         try:
             print(f'Retrieving season record for {message[cmd_index + 1]}')
@@ -109,6 +145,17 @@ def get_team_record(db_root, message, cmd_index):
         return constants.MISSING_TEAM_NAME_ERR_MSG
 
 def get_team_cap(db_root, message, cmd_index):
+    '''Get salary cap info for specific team
+    
+    Arguments:
+        db_root {Object} -- Reference to root of Firebase database
+        message {List} -- GroupMe message as list of strings
+        cmd_index {Number} -- Index of slash command in message list
+
+    Returns:
+        String -- salary cap info
+    '''
+
     if(len(message) > cmd_index + 1):
         try:
             print(f'Retrieving salary cap info for {message[cmd_index + 1]}')
@@ -132,6 +179,17 @@ def get_team_cap(db_root, message, cmd_index):
         return constants.MISSING_TEAM_NAME_ERR_MSG
 
 def get_injured_players(db_root, message, cmd_index):
+    '''Get injured players for specific team
+    
+    Arguments:
+        db_root {Object} -- Reference to root of Firebase database
+        message {List} -- GroupMe message as list of strings
+        cmd_index {Number} -- Index of slash command in message list
+
+    Returns:
+        String -- injured players
+    '''
+
     if(len(message) > cmd_index + 1):
         try:
             print(f'Retrieving injuries info for {message[cmd_index + 1]}')
@@ -156,6 +214,17 @@ def get_injured_players(db_root, message, cmd_index):
         return constants.MISSING_TEAM_NAME_ERR_MSG
 
 def get_expiring_contracts(db_root, message, cmd_index):
+    '''Get players with 1 year left on their contract for a specific team
+    
+    Arguments:
+        db_root {Object} -- Reference to root of Firebase database
+        message {List} -- GroupMe message as list of strings
+        cmd_index {Number} -- Index of slash command in message list
+
+    Returns:
+        String -- players with expiring contracts
+    '''
+
     if(len(message) > cmd_index + 1):
         try:
             print(f'Retrieving expiring contracts for {message[cmd_index + 1]}')
