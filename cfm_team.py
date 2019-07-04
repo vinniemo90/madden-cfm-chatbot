@@ -23,9 +23,7 @@ def get_assigned_teams(db_root, message, cmd_index):
                 if user.get('gamertag') and user.get('teamId') and user.get('nickname') ]
 
         for user in users:
-            print('find associated team')
             team_snapshot = db_root.child('teams').child(user['teamId']).get()
-            print(f'Team Snapshot ===> {team_snapshot}')
             assigned_teams.append(f"{user['nickname']} => {team_snapshot['displayName']}")
         return '\n'.join(assigned_teams)
 
