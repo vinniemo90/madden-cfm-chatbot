@@ -113,7 +113,9 @@ def webhook():
                     for i, user in enumerate(groupme_users_snapshot):
                         if(user.get('gamertag')):
                             team_id = user_to_team_map.get(user['gamertag'].lower())
+                            print(f'team id ====> {team_id}')
                             if team_id:
+                                print('update snapshot')
                                 groupme_users_snapshot[i]['teamId'] = team_id
                     print(f'groupme user ===> {groupme_users_snapshot}')
                     cfm.update({'groupMeUsers': groupme_users_snapshot})
