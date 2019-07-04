@@ -128,6 +128,7 @@ def webhook():
         command = [ cmd for cmd in SLASH_COMMANDS.keys() if cmd in data['text'] ]
         if command:
             slash_command = command[0]
+            print(f'Found {slash_command} Command')
             if (slash_command == '/help' or slash_command == '/rules'):
                 bot_response = SLASH_COMMANDS[slash_command]()
                 groupme.send_message(bot_response)
