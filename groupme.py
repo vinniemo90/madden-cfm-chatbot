@@ -4,6 +4,12 @@ from urllib.parse import urlencode
 from urllib.request import Request, urlopen
 
 def send_message(msg):
+    '''Send message to groupme chat
+    
+    Arguments:
+        message {String} -- Message to post in chat
+    '''
+
     url = 'https://api.groupme.com/v3/bots/post'
 
     data = {
