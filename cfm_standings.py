@@ -10,7 +10,7 @@ def get_conf_standings(db_root, msg, func_index):
         func_index {Number} -- Index of slash command in GroupMe message
     '''
 
-    print('Standings keyword found')
+    print('Conference standings keyword found')
     if(len(msg) > func_index + 1) and (msg[func_index + 1].lower() != 'nfl'):
         try:
             print(f'Retrieving standings info for {msg[func_index + 1]} conf')
@@ -38,6 +38,7 @@ def get_nfl_standings(db_root, msg, func_index):
         func_index {Number} -- Index of slash command in GroupMe message
     '''
 
+    print('Standings keyword found')
     try:
         print('Retrieving standings info for entire nfl')
         standings_info_snapshot = db_root.child('standings').get()

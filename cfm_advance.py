@@ -60,6 +60,7 @@ def advance_to_playoffs(db_root):
         return schedule + user_games
     
 def advance(db_root, msg, func_index):
+    print('Advance keyword found')
     schedule = []
     if(len(msg) > func_index + 1) and (msg[func_index + 1].lower() == 'pre'):
         try:

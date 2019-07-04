@@ -13,6 +13,7 @@ def get_assigned_teams(db_root, message, cmd_index):
         String -- user nickname => team name
     '''
 
+    print('Users keyword found')
     assigned_teams = []
     groupme_users_snapshot = db_root.child('groupMeUsers').get()
 
@@ -44,6 +45,7 @@ def get_team_info(db_root, message, cmd_index):
         String -- team info
     '''
 
+    print('Teams keyword found')
     if(len(message) > cmd_index + 1):
         try:
             print(f'Retrieving team info for {message[cmd_index + 1]}')
@@ -83,6 +85,7 @@ def get_team_season_stats(db_root, message, cmd_index):
         String -- season stats
     '''
 
+    print('Stats keyword found')
     if(len(message) > cmd_index + 1):
         try:
             print(f'Retrieving team season stats for {message[cmd_index + 1]}')
@@ -125,6 +128,7 @@ def get_team_record(db_root, message, cmd_index):
         String -- team record
     '''
 
+    print('Record keyword found')
     if(len(message) > cmd_index + 1):
         try:
             print(f'Retrieving season record for {message[cmd_index + 1]}')
@@ -154,6 +158,7 @@ def get_team_cap(db_root, message, cmd_index):
         String -- salary cap info
     '''
 
+    print('Cap keyword found')
     if(len(message) > cmd_index + 1):
         try:
             print(f'Retrieving salary cap info for {message[cmd_index + 1]}')
@@ -188,6 +193,7 @@ def get_injured_players(db_root, message, cmd_index):
         String -- injured players
     '''
 
+    print('Injuries keyword found')
     if(len(message) > cmd_index + 1):
         try:
             print(f'Retrieving injuries info for {message[cmd_index + 1]}')
@@ -223,6 +229,7 @@ def get_expiring_contracts(db_root, message, cmd_index):
         String -- players with expiring contracts
     '''
 
+    print('Resign keyword found')
     if(len(message) > cmd_index + 1):
         try:
             print(f'Retrieving expiring contracts for {message[cmd_index + 1]}')
