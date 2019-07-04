@@ -27,7 +27,7 @@ app = Flask(__name__)
 # GroupMe info
 groupme_token = os.getenv('GROUPME_TOKEN')
 groupme_group_id = os.getenv('GROUPME_GROUP_ID')
-groupme_bot_name = 'John Madden'
+groupme_bot_name = os.getenv('GROUPME_BOT_NAME')
 
 # Create firebase creds file
 firebase_creds = {
