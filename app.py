@@ -114,7 +114,7 @@ def webhook():
                         if(user.get('gamertag')):
                             team_id = user_to_team_map.get(user['gamertag'].lower())
                             if team_id:
-                                groupme_users_snapshot[i].update({'teamId': team_id})
+                                groupme_users_snapshot[i]['teamId'] = team_id
                     print(f'groupme user ===> {groupme_users_snapshot}')
                     cfm.update({'groupMeUsers': groupme_users_snapshot})
                     groupme.send_message(constants.GAMERTAG_SUCCESS_MESSAGE)
