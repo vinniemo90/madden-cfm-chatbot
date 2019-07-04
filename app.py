@@ -97,7 +97,6 @@ def webhook():
                     print(f"Setting gamertag for {data['name']}")
                     groupme_users_snapshot = cfm.child('groupMeUsers').get()
                     groupme_user = [ i for i, user in enumerate(groupme_users_snapshot) if user['nickname'] == data['name'] ]
-                    print(f'Groupme user index {groupme_user}')
                     groupme_users_snapshot[groupme_user[0]].update({'gamertag': msg[func_index + 1].lower()})
 
                     user_to_team_map = {}
@@ -107,17 +106,14 @@ def webhook():
                     for team_id, team in teams_snapshot.items():
                         if team['userName']:
                             user_to_team_map[team['userName'].lower()] = team_id
-                    print(f'team map ====> {user_to_team_map}')
                     
                     print('Associate users to teams')
                     for i, user in enumerate(groupme_users_snapshot):
                         if(user.get('gamertag')):
                             team_id = user_to_team_map.get(user['gamertag'].lower())
-                            print(f'team id ====> {team_id}')
                             if team_id:
-                                print('update snapshot')
                                 groupme_users_snapshot[i]['teamId'] = team_id
-                    print(f'groupme user ===> {groupme_users_snapshot}')
+
                     cfm.update({'groupMeUsers': groupme_users_snapshot})
                     groupme.send_message(constants.GAMERTAG_SUCCESS_MESSAGE)
                 
