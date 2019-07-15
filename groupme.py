@@ -43,6 +43,7 @@ def get_groupme_user_ids(mentions, db_root):
     groupme_ids = []
     groupme_users_snapshot = db_root.child('groupMeUsers').get()
     groupme_users_snapshot = [ user.get('user_id') for user in groupme_users_snapshot]
+    print(f'GroupMe user id ===> {groupme_users_snapshot}')
 
     for user in mentions:
         print('Retrieving groupme ids for mentioned users')
@@ -50,7 +51,7 @@ def get_groupme_user_ids(mentions, db_root):
             user_index = groupme_users_snapshot.index(user[1:])
             groupme_ids.append(groupme_users_snapshot[user_index])
         except ValueError:
-            print(f'{user} was mentioned but user does not exists')
+            print(f'{user[1:]} was mentioned but user does not exists')
             groupme_ids.append('')
 
     return groupme_ids
