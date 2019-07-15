@@ -1,4 +1,3 @@
-import groupme
 import response_objects
 import constants
 

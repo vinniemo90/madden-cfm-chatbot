@@ -1,4 +1,3 @@
-import groupme
 import constants
 
 def get_conf_standings(db_root, msg, func_index):
