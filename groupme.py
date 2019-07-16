@@ -59,7 +59,7 @@ def get_groupme_user_ids(mentions, db_root):
 def add_mentions_attachment(msg, db_root):
     user_ids = []
     loci = []
-
+    print(f'MSG ===> {msg}')
     print('Finding all user mentions within message')
     mentions = re.findall('\((.*?)\)',msg)
     print(f'Mentions ===> {mentions}')
