@@ -1,5 +1,6 @@
 import os
 import re
+import requests
 
 from urllib.parse import urlencode
 from urllib.request import Request, urlopen
@@ -30,8 +31,9 @@ def send_message(msg, db_root = None):
         }
 
     print('Sending groupme message')
-    request = Request(url, urlencode(data).encode())
-    json = urlopen(request).read().decode()
+    r = requests.post(url, json = data)
+    #request = Request(url, urlencode(data).encode())
+    #json = urlopen(request).read().decode()
 
 def mentions_exists(msg):
     if(msg.find('@') != -1):
