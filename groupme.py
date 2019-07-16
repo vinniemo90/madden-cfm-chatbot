@@ -49,7 +49,7 @@ def get_groupme_user_ids(mentions, db_root):
         print('Retrieving groupme ids for mentioned users')
         try:
             user_index = groupme_users_nicknames.index(user[1:])
-            groupme_ids.append(groupme_users_snapshot[user_index]['user_id'])
+            groupme_ids.append(int(groupme_users_snapshot[user_index]['user_id']))
         except ValueError:
             print(f'{user[1:]} was mentioned but user does not exists')
             groupme_ids.append('')
