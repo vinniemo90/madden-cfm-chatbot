@@ -165,7 +165,7 @@ def get_command_index(message, command):
 # Team info export endpoint
 @app.route('/exports/<system>/<leagueId>/leagueteams', methods=['POST'])
 def league_teams_export(system, leagueId):
-    teams = decode_bytes_stream(request)
+    teams = json.loads(request.data)
     teams = teams['leagueTeamInfoList']
     teams_ref = cfm.child('teams')
 
@@ -177,7 +177,7 @@ def league_teams_export(system, leagueId):
 # Standings export endpoint
 @app.route('/exports/<system>/<leagueId>/standings', methods=['POST'])
 def standings_export(system, leagueId):
-    standings = decode_bytes_stream(request)
+    standings = json.loads(request.data)
     standings = standings['teamStandingInfoList']
     standings_ref = cfm.child('standings')
 
@@ -189,7 +189,7 @@ def standings_export(system, leagueId):
 # Weekly info export endpoint
 @app.route('/exports/<system>/<leagueId>/week/<weekType>/<weekNumber>/<dataType>', methods=['POST'])
 def week_export(system, leagueId, weekType, weekNumber, dataType):
-    weeks = decode_bytes_stream(request)
+    weeks = json.loads(request.data)
     weekly_ref = cfm.child(f'weeks/{weekType}/{weekNumber}/{dataType}')
 
     if dataType.lower() == 'schedules':
@@ -202,34 +202,16 @@ def week_export(system, leagueId, weekType, weekNumber, dataType):
 
 @app.route('/exports/<system>/<leagueId>/freeagents/roster', methods=['POST'])
 def free_agent_export(system, leagueId):
-    free_agents = decode_bytes_stream(request)
+    free_agents = json.loads(request.data)
 
     return 'ok', 200
 
 # Weekly info export endpoint
 @app.route('/exports/<system>/<leagueId>/team/<teamId>/roster', methods=['POST'])
 def roster_export(system, leagueId, teamId):
-    roster = decode_bytes_stream(request)
+    roster = json.loads(request.data)
 
     rosters_ref = cfm.child('rosters')
     rosters_ref.update({teamId: roster['rosterInfoList']})
 
-    return 'ok', 200
-
-def decode_bytes_stream(request):
-    '''Decode bytes stream
-    
-    Arguments:
-        data {[type]} -- [description]
-
-    Returns:
-        String -- json string format of bytes stream
-    '''
-
-    # Decompress gzip bytes stream
-    print(request.data)
-    # buf = io.BytesIO(request.data)
-    # gzip_f = gzip.GzipFile(fileobj=buf)
-    # data = gzip_f.read()
-    # data = data.decode('utf-8')
-    return json.loads(request.data)    
+    return 'ok', 200   
