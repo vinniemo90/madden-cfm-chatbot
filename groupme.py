@@ -14,7 +14,7 @@ def send_message(msg, db_root = None):
 
     url = 'https://api.groupme.com/v3/bots/post'
 
-    if(mentions_exists):
+    if(mentions_exists(msg)):
         attachment = add_mentions_attachment(msg, db_root)
         print(f'Groupme Attachment ===> {attachment}')
         data = {
