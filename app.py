@@ -166,6 +166,7 @@ def get_command_index(message, command):
 @app.route('/exports/<system>/<leagueId>/leagueteams', methods=['POST'])
 def league_teams_export(system, leagueId):
     teams = json.loads(request.data)
+    print(teams)
     teams = teams['leagueTeamInfoList']
     teams_ref = cfm.child('teams')
 
