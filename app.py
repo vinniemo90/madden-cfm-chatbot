@@ -226,10 +226,10 @@ def decode_bytes_stream(request):
         String -- json string format of bytes stream
     '''
 
-    print(request)
     # Decompress gzip bytes stream
-    buf = io.BytesIO(request.data)
-    gzip_f = gzip.GzipFile(fileobj=buf)
-    data = gzip_f.read()
-    data = data.decode('utf-8')
-    return json.loads(data)    
+    print(request.data)
+    # buf = io.BytesIO(request.data)
+    # gzip_f = gzip.GzipFile(fileobj=buf)
+    # data = gzip_f.read()
+    # data = data.decode('utf-8')
+    return json.loads(request.data)    
