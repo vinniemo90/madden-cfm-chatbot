@@ -31,4 +31,4 @@ def get_team_nicknames(teamAbbreviation):
 
     with open('teamNicknames.json') as teamNicknames:
         nicknames = json.load(teamNicknames)
-        return nicknames['teamAbbreviation']
+        return nicknames[teamAbbreviation]
