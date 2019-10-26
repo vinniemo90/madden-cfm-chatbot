@@ -29,7 +29,7 @@ Create firebase account at https://firebase.google.com.
 3. Under the develop tab select database
 4. Scroll down and chaoose create realtime database
 5. Start in test mode
-6. Make not of the database url
+6. Make note of the database url
 7. Using the stacked menu on the right, import the firebase_import.json file from your github repo
 8. Click the gear next to Project Overview and select project settings
 9. Navigate to the service accounts tab
