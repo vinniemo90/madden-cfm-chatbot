@@ -175,7 +175,7 @@ def league_teams_export(system, leagueId):
         teams_ref.update({team['teamId']: team})
         nicknames = utils.get_team_nicknames(team['abbrName'])
         for nickname in nicknames:
-            team_map_ref.update({nickname: team['teamId']})
+            team_map_ref.update({nickname: f"{team['teamId']}"})
 
     return 'ok', 200
 
