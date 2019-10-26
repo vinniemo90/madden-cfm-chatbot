@@ -1,0 +1,177 @@
+{
+	"SF": [
+		"49ers",
+		"niners",
+		"san fran",
+		"san francisco",
+		"sf"
+	],
+	"CHI": [
+		"bears",
+		"chi",
+		"chicago"
+	],
+	"CIN": [
+		"bengals",
+		"cin",
+		"cincinnati",
+		"cincy"
+	],
+	"BUF": [
+		"bills",
+		"buf",
+		"buffalo"
+	],
+	"DEN": [
+		"broncos",
+		"den",
+		"denver"
+	],
+	"CLE": [
+		"browns",
+		"cle",
+		"cleveland"
+	],
+	"TB": [
+		"buccaneers",
+		"bucs",
+		"tampa",
+		"tampa bay",
+		"tb"
+	],
+	"ARI": [
+		"ari",
+		"arizona",
+		"cardinals",
+		"cards"
+	],
+	"LAC": [
+		"bolts",
+		"chargers",
+		"lac"
+	],
+	"KC": [
+		"chiefs",
+		"kansas city",
+		"kc"
+	],
+	"IND": [
+		"colts",
+		"ind",
+		"indianapolis",
+		"indy"
+	],
+	"DAL": [
+		"boys",
+		"cowboys",
+		"dal",
+		"dallas"
+	],
+	"MIA": [
+		"dolphins",
+		"fins",
+		"mia",
+		"miami"
+	],
+	"PHI": [
+		"eagles",
+		"phi",
+		"philadelphia",
+		"philly"
+	],
+	"ATL": [
+		"atl",
+		"atlanta",
+		"dirty birds",
+		"falcons"
+	],
+	"NYG": [
+		"g-men",
+		"giants",
+		"nyg"
+	],
+	"JAX": [
+		"jacksonville",
+		"jags",
+		"jaguars",
+		"jax"
+	],
+	"NYJ": [
+		"jets",
+		"nyj"
+	],
+	"DET": [
+		"det",
+		"detroit",
+		"lions"
+	],
+	"GB": [
+		"gb",
+		"green bay",
+		"pack",
+		"packers"
+	],
+	"CAR": [
+		"car",
+		"carolina",
+		"panthers"
+	],
+	"NE": [
+		"ne",
+		"new england",
+		"patriots",
+		"pats"
+	],
+	"OAK": [
+		"oak",
+		"oakland",
+		"raiders"
+	],
+	"LAR": [
+		"lar",
+		"rams"
+	],
+	"BAL": [
+		"bal",
+		"baltimore",
+		"ravens"
+	],
+	"WAS": [
+		"redskins",
+		"skins",
+		"was",
+		"washington"
+	],
+	"NO": [
+		"new orleans",
+		"no",
+		"saints"
+	],
+	"SEA": [
+		"hawks",
+		"sea",
+		"seahawks",
+		"seattle"
+	],
+	"PIT": [
+		"pit",
+		"pittsburgh",
+		"steelers"
+	],
+	"HOU": [
+		"hou",
+		"houston",
+		"texans"
+	],
+	"TEN": [
+		"ten",
+		"tennessee",
+		"titans"
+	],
+	"MIN": [
+		"min",
+		"minnesota",
+		"vikes",
+		"vikings"
+	]
+}
