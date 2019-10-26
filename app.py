@@ -173,6 +173,7 @@ def league_teams_export(system, leagueId):
 
     for team in teams:
         teams_ref.update({team['teamId']: team})
+        # Assign team id to associated nicknames
         nicknames = utils.get_team_nicknames(team['abbrName'])
         for nickname in nicknames:
             team_map_ref.update({nickname: f"{team['teamId']}"})
@@ -185,9 +186,23 @@ def standings_export(system, leagueId):
     standings = json.loads(request.data)
     standings = standings['teamStandingInfoList']
     standings_ref = cfm.child('standings')
+    conference_map_ref = cfm.child('conferenceMap')
+    conference_map = {
+        "afc": "",
+        "nfc": ""
+    }
 
     for team in standings:
         standings_ref.update({team['teamId']: team})
+        # Set conference ids
+        if team['conferenceName'].lower() == 'afc' and not conference_map['afc']:
+            conference_map['afc'] = team['conferenceId']
+        if team['conferenceName'].lower() == 'nfc' and not conference_map['nfc']:
+            conference_map['nfc'] = team['conferenceId']
+
+    # Upload conference map
+    conference_map_ref.update(conference_map)
+
 
     return 'ok', 200
 
