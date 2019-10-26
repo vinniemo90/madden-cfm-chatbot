@@ -1,8 +1,4 @@
 {
-  "conferenceMap" : {
-    "afc" : 999030784,
-    "nfc" : 1001914368
-  },
   "league" : {
     "weekNumber" : 1,
     "weekType" : "pre"
