@@ -134,7 +134,7 @@ def webhook():
                 groupme.send_message(bot_response)
 
             else:
-                base_command = command[0].split()[0]
+                base_command = slash_command.split()[0]
                 msg, func_index = get_command_index(data, base_command)
                 bot_response = SLASH_COMMANDS[slash_command](cfm, msg, func_index)
                 groupme.send_message(bot_response, cfm)
@@ -157,6 +157,24 @@ def get_command_index(message, command):
 
     return msg_as_list, cmd_index
 
+def does_league_already_exists(firebase_node, id):
+    '''Check if ID exists in firebase
+    
+    Arguments:
+        firebase_node {String} -- Firebase node
+        id {String} -- ID to search for
+    
+    Returns:
+        Boolean -- True if id is found
+    '''
+
+    if cfm.child(firebase_node).get(False, True):
+        print(f'{id} exists')
+        return True
+    
+    print(f'{id} does not exists')
+    return False
+
 
 ######################################################
 # Export Endpoints
@@ -171,6 +189,7 @@ def league_teams_export(system, leagueId):
     teams_ref = cfm.child('teams')
     team_map_ref = cfm.child('teamMap')
 
+    if not does_league_already_exists('teams', teams[0]['teamId']):
     for team in teams:
         teams_ref.update({team['teamId']: team})
         # Assign team id to associated nicknames
