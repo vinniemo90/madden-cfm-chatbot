@@ -259,10 +259,6 @@ def roster_export(system, leagueId, teamId):
     roster = json.loads(request.data)
     rosters_ref = cfm.child('rosters')
 
-    if not does_league_already_exists('rosters', teamId):
-        print('Deleting rosters node because new league is being exported')
-        rosters_ref.delete()
-
     rosters_ref.update({teamId: roster['rosterInfoList']})
 
     return 'ok', 200   
