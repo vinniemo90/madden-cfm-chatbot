@@ -190,6 +190,10 @@ def league_teams_export(system, leagueId):
     team_map_ref = cfm.child('teamMap')
 
     if not does_league_already_exists('teams', teams[0]['teamId']):
+        print('Deleting teams and team map nodes because new league is being exported')
+        teams_ref.delete()
+        team_map_ref.delete()
+
     for team in teams:
         teams_ref.update({team['teamId']: team})
         # Assign team id to associated nicknames
