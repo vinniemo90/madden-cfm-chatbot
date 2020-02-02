@@ -215,6 +215,10 @@ def standings_export(system, leagueId):
         "nfc": ""
     }
 
+    if not does_league_already_exists('standings', standings[0]['teamId']):
+        print('Deleting standings node because new league is being exported')
+        standings_ref.delete()
+
     for team in standings:
         standings_ref.update({team['teamId']: team})
         # Set conference ids
