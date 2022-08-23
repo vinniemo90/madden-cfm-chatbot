@@ -7,7 +7,7 @@ from urllib.request import Request, urlopen
 
 import firebase_admin
 import requests
-from firebase_admin import credentials, firestore
+from firebase_admin import credentials, db
 from flask import Flask, request
 
 import cfm_advance
@@ -67,8 +67,8 @@ SLASH_COMMANDS = {
     '/users': cfm_team.get_assigned_teams
 }
 
-# Root firestore reference
-cfm = firestore.client()
+# Root db reference
+cfm = db.reference()
 
 ######################################################
 # GroupMe Endpoint
@@ -205,8 +205,8 @@ def league_teams_export(system, leagueId):
 def standings_export(system, leagueId):
     standings = json.loads(request.data)
     standings = standings['teamStandingInfoList']
+    standings_ref = cfm.child('standings')
     conference_map_ref = cfm.child('conferenceMap')
-    standings_ref = cfm.collection(u'standings')
     conference_map = {
         "afc": "",
         "nfc": ""
