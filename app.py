@@ -1,26 +1,23 @@
-import os
-import json
-import firebase_admin
-import io
 import gzip
-import requests
-
-import cfm_schedule
-import cfm_advance
-import cfm_team
-import cfm_standings
-import groupme
-import response_objects
-import constants
-import utils
-
-from firebase_admin import credentials
-from firebase_admin import db
-
+import io
+import json
+import os
 from urllib.parse import urlencode
 from urllib.request import Request, urlopen
 
+import firebase_admin
+import requests
+from firebase_admin import credentials, firestore
 from flask import Flask, request
+
+import cfm_advance
+import cfm_schedule
+import cfm_standings
+import cfm_team
+import constants
+import groupme
+import response_objects
+import utils
 
 app = Flask(__name__)
 
@@ -70,8 +67,8 @@ SLASH_COMMANDS = {
     '/users': cfm_team.get_assigned_teams
 }
 
-# Root db reference
-cfm = db.reference()
+# Root firestore reference
+cfm = firestore.client()
 
 ######################################################
 # GroupMe Endpoint
