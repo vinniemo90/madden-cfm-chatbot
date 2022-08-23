@@ -205,8 +205,8 @@ def league_teams_export(system, leagueId):
 def standings_export(system, leagueId):
     standings = json.loads(request.data)
     standings = standings['teamStandingInfoList']
-    standings_ref = cfm.child('standings')
     conference_map_ref = cfm.child('conferenceMap')
+    standings_ref = cfm.collection(u'standings')
     conference_map = {
         "afc": "",
         "nfc": ""
