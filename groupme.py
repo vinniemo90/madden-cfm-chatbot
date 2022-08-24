@@ -32,7 +32,9 @@ def send_message(msg, db_root = None):
         }
 
     print('Sending groupme message')
-    requests.post(url, data=data)
+    print(data)
+    r = requests.post(url, data=data)
+    print(r.json())
     # request = Request(url, urlencode(data).encode())
     # json = urlopen(request).read().decode()
 
