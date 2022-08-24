@@ -1,5 +1,6 @@
-import response_objects
 import constants
+import response_objects
+
 
 def get_user_scores(db_root, week_type, week_number):
     '''Get user vs. user game scores and return as list
@@ -16,6 +17,7 @@ def get_user_scores(db_root, week_type, week_number):
     try:
         team_snapshot = db_root.child('teams').get()
         user_team_ids = [ team['teamId'] for team_id, team in team_snapshot.items() if team['userName'] ]
+        print(user_team_ids)
         schedule_snapshot = db_root.child(f'weeks/{week_type}/{week_number}/schedules').get()
         
         user_games = []
@@ -54,6 +56,7 @@ def get_user_games(db_root, week_type, week_number):
     try:
         team_snapshot = db_root.child('teams').get()
         user_team_ids = [ team['teamId'] for team_id, team in team_snapshot.items() if team['userName'] ]
+        print(user_team_ids)
         schedule_snapshot = db_root.child(f'weeks/{week_type}/{week_number}/schedules').get()
         
         user_games = []
