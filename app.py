@@ -2,8 +2,7 @@ import gzip
 import io
 import json
 import os
-from urllib.parse import urlencode
-from urllib.request import Request, urlopen
+import time
 
 import firebase_admin
 import requests
@@ -81,6 +80,7 @@ def webhook():
     # Update users on GroupMe name change
     if data['sender_id'].lower() == 'system' and ('changed name to' in data['text'].lower() or 'added' in data['text'].lower()):
         print('Groupme user changed name or new user added to group')
+        time.sleep(3)
         request_params = {'token': groupme_token}
         group_members = requests.get(f'https://api.groupme.com/v3/groups/{groupme_group_id}', params = request_params).json()['response']['members']
         print('Updating groupme users info')
