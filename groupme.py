@@ -35,8 +35,6 @@ def send_message(msg, db_root = None):
     print(data)
     r = requests.post(url, json=data)
     print(r.json())
-    # request = Request(url, urlencode(data).encode())
-    # json = urlopen(request).read().decode()
 
 def mentions_exists(msg):
     if(msg.find('@') != -1):
