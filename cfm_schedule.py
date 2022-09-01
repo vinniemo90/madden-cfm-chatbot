@@ -132,6 +132,8 @@ def get_team_schedule(db_root, team_id):
         print('Get opponent team names')
         teams_snapshot = db_root.child('teams').get()
         for wk_num, opp_team_id in season_schedule_team_ids:
+            print(wk_num)
+            print(opp_team_id)
             if(opp_team_id == 'Bye'):
                 season_schedule_team_names.append(f'wk {wk_num + 1}: {opp_team_id}')
             else:
